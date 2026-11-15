@@ -2908,3 +2908,22 @@ html.w26-preload-out .w26-pre__stack {
   min-height: 56px;
   letter-spacing: 0.16em;
 }
+
+/* Bag drawer: show the whole product photo, never a crop */
+.cart-drawer__dialog {
+  --cart-item-media-width-min: 5.25rem;
+}
+.cart-drawer__dialog .cart-items__media-container {
+  display: block;
+  aspect-ratio: auto;
+  height: auto;
+  background: none;
+}
+.cart-drawer__dialog .cart-items__media-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}

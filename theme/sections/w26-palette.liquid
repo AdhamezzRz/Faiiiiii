@@ -48,6 +48,7 @@
               }}
             </div>
           {%- endif -%}
+          {%- if b.text != blank or pieces.size > 0 or prods.size > 0 -%}
           <div class="w26-band__body">
             {%- if b.text != blank -%}
               <p class="w26-band__lead">{{ b.text | escape }}</p>
@@ -64,6 +65,7 @@
               {%- endif -%}
             </ul>
           </div>
+          {%- endif -%}
         </div>
       </li>
     {%- endfor -%}

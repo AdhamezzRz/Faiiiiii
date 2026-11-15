@@ -9,8 +9,8 @@ The lights go down for winter: a night-coloured stage, a magazine-masthead serif
 ## Colors
 | Name | Value | Token | Role |
 | --- | --- | --- | --- |
-| Night | `#100b09` | `--w26-night`, scheme-4 | Dark surface: hero, lookbook, header, footer, bag drawer |
-| Espresso | `#2a1a14` | `--w26-espresso`, scheme-5 | Second dark surface: films |
+| Night | `#24150f` | `--w26-night`, scheme-4 | Dark surface: hero, lookbook, header, footer, bag drawer |
+| Espresso | `#33201a` | `--w26-espresso`, scheme-5 | Second dark surface: films |
 | Bone | `#f3ede4` | `--w26-bone`, scheme-2 | Light surface and text on dark |
 | Paper | `#fbf8f3` | `--w26-paper`, scheme-1 | Product and collection pages |
 | Ink | `#17100d` | `--w26-ink` | Text on light, primary buttons on light |

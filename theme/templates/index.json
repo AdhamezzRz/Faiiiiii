@@ -326,17 +326,11 @@
             "name": "Chocolate",
             "colour": "#3a2118",
             "ink": "light",
-            "count": "5 pieces",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4457.jpg",
-            "text": "The colour the whole drop is built on.",
-            "pieces": "Belted Wrap Jacket, Leather Collar Jacket, Hooded Wrap Coat, Beaded Co-Ord, Crochet Trim Jacket",
-            "products": [
-              "faii-chocolate-belted-wrap-jacket",
-              "faii-chocolate-leather-collar-jacket",
-              "faii-chocolate-hooded-wrap-coat",
-              "faii-chocolate-beaded-co-ord",
-              "faii-chocolate-crochet-trim-jacket"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b2": {
@@ -345,15 +339,11 @@
             "name": "Black",
             "colour": "#141212",
             "ink": "light",
-            "count": "3 pieces",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4641.jpg",
-            "text": "Black on black, down to the knots.",
-            "pieces": "Knot Jacket, Leather Collar Jacket, Beaded Co-Ord",
-            "products": [
-              "faii-black-knot-jacket",
-              "faii-black-leather-collar-jacket",
-              "faii-black-beaded-co-ord"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b3": {
@@ -362,13 +352,11 @@
             "name": "Camel",
             "colour": "#b08d62",
             "ink": "dark",
-            "count": "1 piece",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4367.jpg",
-            "text": "Warm camel against a navy collar.",
-            "pieces": "Belted Wrap Jacket",
-            "products": [
-              "faii-camel-belted-wrap-jacket"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b4": {
@@ -377,13 +365,11 @@
             "name": "Grey",
             "colour": "#7c7b7d",
             "ink": "light",
-            "count": "1 piece",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4329.jpg",
-            "text": "Soft grey, fastened in black.",
-            "pieces": "Knot Jacket",
-            "products": [
-              "faii-grey-knot-jacket"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b5": {
@@ -392,13 +378,11 @@
             "name": "Sand",
             "colour": "#d9ccb4",
             "ink": "dark",
-            "count": "1 piece",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4755.jpg",
-            "text": "The lightest piece in the drop.",
-            "pieces": "Knot Jacket",
-            "products": [
-              "faii-sand-knot-jacket"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b6": {
@@ -407,13 +391,11 @@
             "name": "Ivory",
             "colour": "#efe7d8",
             "ink": "dark",
-            "count": "1 piece",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4570.jpg",
-            "text": "Tone on tone, belted.",
-            "pieces": "Hooded Wrap Coat",
-            "products": [
-              "faii-ivory-hooded-wrap-coat"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         },
         "b7": {
@@ -422,13 +404,11 @@
             "name": "Sky",
             "colour": "#a9c6e2",
             "ink": "dark",
-            "count": "The lining",
+            "count": "",
             "image": "shopify://shop_images/faii-w26-a4563.jpg",
-            "text": "Only there when the hood falls open.",
-            "pieces": "Inside the Chocolate Hooded Wrap Coat",
-            "products": [
-              "faii-chocolate-hooded-wrap-coat"
-            ]
+            "text": "",
+            "pieces": "",
+            "products": []
           }
         }
       },

@@ -297,19 +297,9 @@
     });
   }
 
-  /* ---------- Shop page: view switch and sorting ---------- */
+  /* ---------- Shop page: sorting ---------- */
   function initShopGrid() {
     $$('[data-w26-shopgrid]').forEach(function (sec) {
-      var btns = $$('[data-w26-view]', sec);
-      function setView(v) {
-        sec.setAttribute('data-view', v);
-        btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-w26-view') === v ? 'true' : 'false'); });
-        try { localStorage.setItem('w26-view', v); } catch (e) {}
-      }
-      var saved = null;
-      try { saved = localStorage.getItem('w26-view'); } catch (e) {}
-      if (saved === 'index' || saved === 'grid') setView(saved);
-      btns.forEach(function (b) { b.addEventListener('click', function () { setView(b.getAttribute('data-w26-view')); }); });
       var sel = sec.querySelector('[data-w26-sort]');
       if (sel) sel.addEventListener('change', function () {
         var u = new URL(window.location.href);

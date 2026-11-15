@@ -1,8 +1,7 @@
 {% comment %}
   Section contract.
-  The shop page grid. Two ways to read a collection: a photo grid with large
-  feature tiles, or a typographic index with a photo that follows the cursor.
-  Includes filter chips, sorting and pagination.
+  The shop page grid: a photo grid with large feature tiles, filter chips,
+  sorting and pagination.
   @example
   <!-- Under the collection header on the collection template -->
 {% endcomment %}
@@ -12,7 +11,7 @@
   assign has_active = false
 -%}
 {%- paginate collection.products by s.per_page -%}
-  <section class="w26-shopgrid" data-w26-shopgrid data-view="grid" aria-label="{{ collection.title | remove: ',' | escape }}">
+  <section class="w26-shopgrid" data-w26-shopgrid aria-label="{{ collection.title | remove: ',' | escape }}">
     <div class="w26-wrap">
       <div class="w26-toolbar">
         <div class="w26-toolbar__filters">
@@ -46,10 +45,6 @@
               {%- endfor -%}
             </select>
           </label>
-          <div class="w26-view" role="group" aria-label="{{ s.view_label | escape }}">
-            <button type="button" data-w26-view="grid" aria-pressed="true">{{ s.view_grid | escape }}</button>
-            <button type="button" data-w26-view="index" aria-pressed="false">{{ s.view_index | escape }}</button>
-          </div>
         </div>
       </div>
 
@@ -95,30 +90,6 @@
             </li>
           {%- endfor -%}
         </ul>
-
-        <ul class="w26-pieces__list w26-shopgrid__index" role="list" data-w26-pieces>
-          {%- for product in collection.products -%}
-            <li class="w26-piece"{% if product.featured_image != blank %} data-preview="{{ product.featured_image | image_url: width: 720 }}"{% endif %}>
-              <span class="w26-piece__thumb" aria-hidden="true">
-                {%- if product.featured_image != blank -%}
-                  {{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', decoding: 'async', alt: '' }}
-                {%- endif -%}
-              </span>
-              <div class="w26-piece__main">
-                <a class="w26-piece__name w26-display" href="{{ product.url }}">{{ product.title | remove_first: 'FAII ' | escape }}</a>
-              </div>
-              <div class="w26-piece__colours w26-meta">
-                {%- if product.available == false -%}
-                  {{ s.sold_out_label | escape }}
-                {%- elsif product.has_only_default_variant == false -%}
-                  {{ product.options_with_values.first.values | join: ' · ' | escape }}
-                {%- endif -%}
-              </div>
-              <div class="w26-piece__status w26-meta">{{ product.price | money }}</div>
-              <span class="w26-piece__arrow" aria-hidden="true">→</span>
-            </li>
-          {%- endfor -%}
-        </ul>
       {%- endif -%}
 
       {%- if paginate.pages > 1 -%}
@@ -149,9 +120,6 @@
     { "type": "range", "id": "per_page", "label": "Products per page", "min": 12, "max": 48, "step": 4, "default": 24 },
     { "type": "text", "id": "count_label", "label": "Text after the product count", "default": "pieces" },
     { "type": "text", "id": "sort_label", "label": "Sort label", "default": "Sort" },
-    { "type": "text", "id": "view_label", "label": "View switch accessible name", "default": "View" },
-    { "type": "text", "id": "view_grid", "label": "Grid view label", "default": "Grid" },
-    { "type": "text", "id": "view_index", "label": "Index view label", "default": "Index" },
     { "type": "text", "id": "clear_label", "label": "Clear filters label", "default": "Clear" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
     { "type": "text", "id": "sale_label", "label": "Sale label", "default": "Sale" },

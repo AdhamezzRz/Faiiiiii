@@ -6,8 +6,8 @@
    ========================================================================== */
 
 :root {
-  --w26-night: #100b09;
-  --w26-espresso: #2a1a14;
+  --w26-night: #24150f;
+  --w26-espresso: #33201a;
   --w26-bone: #f3ede4;
   --w26-paper: #fbf8f3;
   --w26-ink: #17100d;
@@ -358,8 +358,8 @@ html.w26-live [data-w26-pre] {
 .w26-hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(16, 11, 9, 0.95) 0%, rgba(16, 11, 9, 0.66) 32%, rgba(16, 11, 9, 0) 62%),
-    linear-gradient(to bottom, rgba(16, 11, 9, 0.6), rgba(16, 11, 9, 0) 24%);
+  background: linear-gradient(to top, rgba(36, 21, 15, 0.95) 0%, rgba(36, 21, 15, 0.66) 32%, rgba(36, 21, 15, 0) 62%),
+    linear-gradient(to bottom, rgba(36, 21, 15, 0.6), rgba(36, 21, 15, 0) 24%);
 }
 .w26-hero__cap {
   display: none;
@@ -1067,13 +1067,13 @@ a.w26-swatch:hover > span {
   min-height: 36px;
   padding: 0 12px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: rgba(16, 11, 9, 0.55);
+  background: rgba(36, 21, 15, 0.55);
   color: #fff;
   cursor: pointer;
   transition: background-color 0.25s var(--w26-ease), transform 0.15s var(--w26-ease);
 }
 .w26-film__sound:hover {
-  background: rgba(16, 11, 9, 0.85);
+  background: rgba(36, 21, 15, 0.85);
 }
 .w26-film__sound:active {
   transform: scale(0.95);
@@ -1272,7 +1272,7 @@ a.w26-swatch:hover > span {
   justify-content: space-between;
   gap: 10px 20px;
   padding: 80px clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px);
-  background: linear-gradient(to top, rgba(16, 11, 9, 0.86), rgba(16, 11, 9, 0));
+  background: linear-gradient(to top, rgba(36, 21, 15, 0.86), rgba(36, 21, 15, 0));
 }
 .w26-archive__name {
   font-size: clamp(34px, 4.4vw, 72px);
@@ -2075,7 +2075,7 @@ html.w26-preload-out .w26-pre__stack {
   font-family: var(--w26-sans);
 }
 .cart-drawer__dialog::backdrop {
-  background: rgba(16, 11, 9, 0.62);
+  background: rgba(36, 21, 15, 0.62);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
@@ -2934,4 +2934,90 @@ html.w26-preload-out .w26-pre__stack {
   color: var(--fg);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
+}
+
+/* ==========================================================================
+   Round five: slimmer films, colour strip palette on every screen size
+   ========================================================================== */
+
+/* Films: narrower and a little smaller */
+.w26-film__row {
+  gap: clamp(16px, 4vw, 64px);
+}
+.w26-film__item {
+  flex: 0 0 min(56vw, 230px);
+}
+@media (min-width: 990px) {
+  .w26-film__row {
+    justify-content: center;
+  }
+  .w26-film__item {
+    flex: 0 1 270px;
+    min-width: 0;
+  }
+}
+
+/* Palette: a strip of colours; the open one shows its photo, nothing else */
+.w26-palette__bands {
+  --unit: calc(100vw / (var(--n) + 5));
+  flex-direction: row;
+  height: min(96vw, 440px);
+}
+.w26-band {
+  flex: 1 1 0;
+  min-width: 0;
+  transition: flex-grow 0.75s var(--w26-ease-drawer);
+}
+.w26-band.is-open {
+  flex-grow: 6;
+}
+.w26-band__tab {
+  position: absolute;
+  inset: 0;
+  display: block;
+  min-height: 0;
+  padding: 0;
+}
+.w26-band__name {
+  position: absolute;
+  left: calc(var(--unit) / 2);
+  bottom: 16px;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  transform: translateX(-50%) rotate(180deg);
+  font-size: clamp(18px, 5vw, 26px);
+}
+.w26-band__panel,
+.w26-band.is-open .w26-band__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--unit);
+  z-index: 3;
+  width: calc(var(--unit) * 5);
+  height: auto;
+  pointer-events: none;
+}
+.w26-band__panel {
+  opacity: 0;
+  transition: opacity 0.3s var(--w26-ease), visibility 0s linear 0.3s;
+}
+.w26-band.is-open .w26-band__panel {
+  opacity: 1;
+  transition: opacity 0.55s var(--w26-ease) 0.25s, visibility 0s;
+}
+.w26-band__media::after {
+  background: linear-gradient(90deg, var(--c) 0%, color-mix(in srgb, var(--c) 0%, transparent) 28%);
+}
+@media (min-width: 990px) {
+  .w26-palette__bands {
+    height: min(66vh, 620px);
+  }
+  .w26-band__name {
+    bottom: 26px;
+    font-size: clamp(26px, 2.6vw, 44px);
+  }
+  .w26-band__media::after {
+    background: linear-gradient(90deg, var(--c) 0%, color-mix(in srgb, var(--c) 0%, transparent) 28%);
+  }
 }

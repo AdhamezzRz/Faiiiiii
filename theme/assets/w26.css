@@ -238,7 +238,7 @@ html.w26-live [data-w26-pre] {
 }
 .w26-cd__num > i {
   display: inline-block;
-  width: 0.62em;
+  width: 0.56em;
   font-style: normal;
   text-align: center;
 }
@@ -388,6 +388,9 @@ html.w26-live [data-w26-pre] {
 .w26-hero__ink {
   display: block;
 }
+.w26-hero__word--a .w26-hero__ink::first-letter {
+  margin-right: -0.085em;
+}
 .w26-hero__intro,
 .w26-hero__clock {
   position: relative;
@@ -486,7 +489,7 @@ html.w26-live [data-w26-pre] {
     transform: translate3d(calc(var(--p, 0) * 6vw), 0, 0);
   }
   .w26-hero__ink {
-    font-size: clamp(56px, 28cqi, 240px);
+    font-size: clamp(56px, 32cqi, 260px);
   }
   .w26-hero__intro {
     order: 0;
@@ -602,7 +605,8 @@ html.w26-live [data-w26-pre] {
 }
 .w26-look__head,
 .w26-look__end {
-  flex: 0 0 min(80vw, 440px);
+  flex: 0 0 min(64vw, 440px);
+  align-self: center;
   scroll-snap-align: start;
 }
 .w26-look__head .w26-meta {
@@ -610,7 +614,7 @@ html.w26-live [data-w26-pre] {
 }
 .w26-look__title {
   margin: 14px 0 20px;
-  font-size: clamp(56px, 8.2vw, 140px);
+  font-size: clamp(52px, 8.2vw, 140px);
 }
 .w26-look__text {
   max-width: 34ch;
@@ -1179,7 +1183,7 @@ a.w26-swatch:hover > span {
 }
 .w26-js [data-w26-develop] .w26-print__photo img {
   filter: brightness(1.9) contrast(0.3) saturate(0);
-  transition: filter 2.2s ease-out;
+  transition: filter 1.6s ease-out;
   transition-delay: calc(var(--i, 0) * 90ms + 200ms);
 }
 .w26-js [data-w26-develop].is-in {
@@ -1385,7 +1389,7 @@ a.w26-swatch:hover > span {
   color: var(--muted);
 }
 .w26-footer__mark {
-  margin: clamp(56px, 8vw, 130px) 0 30px;
+  margin: clamp(48px, 6vw, 96px) 0 28px;
 }
 .w26-footer__mark img {
   width: min(64vw, 460px);
@@ -1462,4 +1466,14 @@ a.w26-swatch:hover > span {
   .w26-footer-section * {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ==========================================================================
+   Theme header, restyled to sit with the Winter 26 system
+   ========================================================================== */
+.header .menu-list__link {
+  letter-spacing: 0.14em;
+}
+.header .menu-list__link-title {
+  font-weight: 500;
 }

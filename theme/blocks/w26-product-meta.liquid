@@ -1,0 +1,33 @@
+{%- doc -%}
+  One mono line above the product title: the collection the piece belongs to and
+  its product type, linking back to that collection.
+  @example
+  {% content_for 'block', type: 'w26-product-meta', id: 'meta' %}
+{%- enddoc -%}
+{%- liquid
+  assign p = closest.product | default: product
+  assign col = p.collections | first
+  assign drop = settings.w26_collection
+  for c in p.collections
+    if drop != blank and c.handle == drop.handle
+      assign col = c
+    endif
+  endfor
+-%}
+{%- if col != blank or p.type != blank -%}
+  <p class="w26-pmeta w26-meta" {{ block.shopify_attributes }}>
+    {%- if col != blank -%}
+      <a href="{{ col.url }}">{{ col.title | remove: ',' | escape }}</a>
+    {%- endif -%}
+    {%- if col != blank and p.type != blank %}<span aria-hidden="true"> / </span>{% endif -%}
+    {%- if p.type != blank -%}<span>{{ p.type | escape }}</span>{%- endif -%}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product collection line",
+  "tag": null,
+  "presets": [{ "name": "Product collection line" }]
+}
+{% endschema %}

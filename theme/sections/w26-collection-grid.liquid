@@ -1,0 +1,162 @@
+{% comment %}
+  Section contract.
+  The shop page grid. Two ways to read a collection: a photo grid with large
+  feature tiles, or a typographic index with a photo that follows the cursor.
+  Includes filter chips, sorting and pagination.
+  @example
+  <!-- Under the collection header on the collection template -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign has_active = false
+-%}
+{%- paginate collection.products by s.per_page -%}
+  <section class="w26-shopgrid" data-w26-shopgrid data-view="grid" aria-label="{{ collection.title | remove: ',' | escape }}">
+    <div class="w26-wrap">
+      <div class="w26-toolbar">
+        <div class="w26-toolbar__filters">
+          {%- for filter in collection.filters -%}
+            {%- if filter.type == 'list' and filter.values.size <= 6 -%}
+              {%- for v in filter.values -%}
+                {%- if v.active -%}{%- assign has_active = true -%}{%- endif -%}
+                {%- if v.count > 0 or v.active -%}
+                  <a
+                    class="w26-chip{% if v.active %} is-active{% endif %}"
+                    href="{% if v.active %}{{ v.url_to_remove }}{% else %}{{ v.url_to_add }}{% endif %}"
+                    {% if v.active %}aria-current="true"{% endif %}
+                  >
+                    {{- v.label | escape }} <span>{{ v.count }}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if has_active -%}
+            <a class="w26-chip w26-chip--clear" href="{{ collection.url }}">{{ s.clear_label | escape }}</a>
+          {%- endif -%}
+        </div>
+        <div class="w26-toolbar__tools">
+          <label class="w26-sort">
+            <span class="w26-meta">{{ s.sort_label | escape }}</span>
+            <select data-w26-sort>
+              {%- for o in collection.sort_options -%}
+                <option value="{{ o.value | escape }}"{% if o.value == sort_by %} selected{% endif %}>{{ o.name | escape }}</option>
+              {%- endfor -%}
+            </select>
+          </label>
+          <div class="w26-view" role="group" aria-label="{{ s.view_label | escape }}">
+            <button type="button" data-w26-view="grid" aria-pressed="true">{{ s.view_grid | escape }}</button>
+            <button type="button" data-w26-view="index" aria-pressed="false">{{ s.view_index | escape }}</button>
+          </div>
+        </div>
+      </div>
+
+      {%- if collection.products.size == 0 -%}
+        <p class="w26-shopgrid__empty w26-display">{{ s.empty_text | escape }}</p>
+      {%- else -%}
+        <ul class="w26-shopgrid__grid" role="list">
+          {%- for product in collection.products -%}
+            <li class="w26-card" data-w26-reveal style="--i:{{ forloop.index0 | modulo: 4 }}">
+              <a class="w26-card__link" href="{{ product.url }}">
+                <div class="w26-card__media">
+                  {%- if product.featured_image != blank -%}
+                    {{
+                      product.featured_image
+                      | image_url: width: 1200
+                      | image_tag: widths: '300, 450, 600, 900, 1200', sizes: '(min-width: 990px) 50vw, 50vw', loading: 'lazy', decoding: 'async', class: 'w26-card__img'
+                    }}
+                  {%- endif -%}
+                  {%- assign second = product.images[1] -%}
+                  {%- if second != blank -%}
+                    {{
+                      second
+                      | image_url: width: 1200
+                      | image_tag: widths: '300, 450, 600, 900, 1200', sizes: '(min-width: 990px) 50vw, 50vw', loading: 'lazy', decoding: 'async', class: 'w26-card__img w26-card__img--alt', alt: ''
+                    }}
+                  {%- endif -%}
+                  {%- if product.available == false -%}
+                    <span class="w26-card__badge w26-meta">{{ s.sold_out_label | escape }}</span>
+                  {%- elsif product.compare_at_price > product.price -%}
+                    <span class="w26-card__badge w26-card__badge--sale w26-meta">{{ s.sale_label | escape }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="w26-card__info">
+                  <h3 class="w26-card__title">{{ product.title | remove_first: 'FAII ' | escape }}</h3>
+                  <p class="w26-card__price">
+                    {%- if product.compare_at_price > product.price -%}
+                      <s>{{ product.compare_at_price | money }}</s>
+                    {%- endif -%}
+                    <span>{{ product.price | money }}</span>
+                  </p>
+                </div>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <ul class="w26-pieces__list w26-shopgrid__index" role="list" data-w26-pieces>
+          {%- for product in collection.products -%}
+            <li class="w26-piece"{% if product.featured_image != blank %} data-preview="{{ product.featured_image | image_url: width: 720 }}"{% endif %}>
+              <span class="w26-piece__thumb" aria-hidden="true">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', decoding: 'async', alt: '' }}
+                {%- endif -%}
+              </span>
+              <div class="w26-piece__main">
+                <a class="w26-piece__name w26-display" href="{{ product.url }}">{{ product.title | remove_first: 'FAII ' | escape }}</a>
+              </div>
+              <div class="w26-piece__colours w26-meta">
+                {%- if product.available == false -%}
+                  {{ s.sold_out_label | escape }}
+                {%- elsif product.has_only_default_variant == false -%}
+                  {{ product.options_with_values.first.values | join: ' · ' | escape }}
+                {%- endif -%}
+              </div>
+              <div class="w26-piece__status w26-meta">{{ product.price | money }}</div>
+              <span class="w26-piece__arrow" aria-hidden="true">→</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="w26-pager" aria-label="{{ s.pager_label | escape }}">
+          {%- if paginate.previous -%}
+            <a class="w26-link" href="{{ paginate.previous.url }}"><span class="w26-arrow" aria-hidden="true">←</span> {{ s.prev_label | escape }}</a>
+          {%- else -%}
+            <span></span>
+          {%- endif -%}
+          <span class="w26-meta">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}
+            <a class="w26-btn" href="{{ paginate.next.url }}"><span>{{ s.next_label | escape }}</span></a>
+          {%- else -%}
+            <span></span>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Shop grid",
+  "tag": "div",
+  "class": "w26-section",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 12, "max": 48, "step": 4, "default": 24 },
+    { "type": "text", "id": "sort_label", "label": "Sort label", "default": "Sort" },
+    { "type": "text", "id": "view_label", "label": "View switch accessible name", "default": "View" },
+    { "type": "text", "id": "view_grid", "label": "Grid view label", "default": "Grid" },
+    { "type": "text", "id": "view_index", "label": "Index view label", "default": "Index" },
+    { "type": "text", "id": "clear_label", "label": "Clear filters label", "default": "Clear" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "text", "id": "sale_label", "label": "Sale label", "default": "Sale" },
+    { "type": "text", "id": "empty_text", "label": "Text when nothing matches", "default": "Nothing here yet." },
+    { "type": "text", "id": "pager_label", "label": "Pagination accessible name", "default": "Pages" },
+    { "type": "text", "id": "prev_label", "label": "Previous page label", "default": "Previous" },
+    { "type": "text", "id": "next_label", "label": "Next page label", "default": "Next page" }
+  ]
+}
+{% endschema %}

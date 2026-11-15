@@ -2408,6 +2408,12 @@
         "id": "w26_cart_empty_button",
         "label": "Button in the empty bag",
         "default": "Shop the collection"
+      },
+      {
+        "type": "text",
+        "id": "w26_cart_rail_title",
+        "label": "Title of the suggestions in the bag (empty to hide)",
+        "default": "Goes with"
       }
     ]
   }

@@ -161,7 +161,7 @@
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
-                "stacking": false,
+                "stacking": true,
                 "show_pickup_availability": false,
                 "gift_card_form": true,
                 "padding-block-start": 0,
@@ -207,9 +207,14 @@
                 "title_2": "Returns and exchanges",
                 "text_2": "<p>See our <a href=\"/policies/refund-policy\">refund policy</a> for how returns and exchanges work.</p>"
               }
+            },
+            "w26_meta": {
+              "type": "w26-product-meta",
+              "settings": {}
             }
           },
           "block_order": [
+            "w26_meta",
             "text_tefwj7",
             "reviews",
             "price_a7krng",
@@ -508,10 +513,15 @@
     "w26_story": {
       "type": "w26-product-story",
       "settings": {}
+    },
+    "w26_close": {
+      "type": "w26-product-close",
+      "settings": {}
     }
   },
   "order": [
     "main",
+    "w26_close",
     "w26_story",
     "product_recommendations_iA6pyd"
   ]

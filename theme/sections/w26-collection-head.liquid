@@ -17,6 +17,15 @@
   endif
 -%}
 <section class="w26-colhead{% if is_drop %} w26-colhead--drop{% endif %}{% if locked %} w26-colhead--locked{% endif %}"{% if locked %} data-w26-locked{% endif %}>
+  {%- if s.menu.links.size > 0 -%}
+    <nav class="w26-wrap w26-coltabs" aria-label="{{ s.menu_label | escape }}">
+      {%- for link in s.menu.links -%}
+        {%- if link.type == 'collection_link' or link.type == 'catalog_link' -%}
+          <a href="{{ link.url }}"{% if link.active %} class="is-active" aria-current="page"{% endif %}>{{ link.title | remove: ',' | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
   <div class="w26-wrap w26-colhead__inner">
     <div class="w26-colhead__copy">
       <p class="w26-meta w26-colhead__label">
@@ -60,6 +69,8 @@
   "tag": "div",
   "class": "w26-section w26-section--colhead",
   "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu for the collection tabs", "default": "main-menu", "info": "Only its collection links are shown." },
+    { "type": "text", "id": "menu_label", "label": "Tabs accessible name", "default": "Collections" },
     { "type": "text", "id": "count_label", "label": "Text after the product count", "default": "pieces" },
     { "type": "header", "content": "Before the drop" },
     { "type": "text", "id": "locked_label", "label": "Label", "default": "Opens in" },

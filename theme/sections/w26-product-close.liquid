@@ -1,0 +1,49 @@
+{% comment %}
+  Section contract.
+  "Up close": three of the product's own detail photographs, staggered, with the
+  product name set large beside them. Shows only when the product has at least
+  seven photos, so short galleries are left alone.
+  @example
+  <!-- Under the product information section -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign shots = product.images
+-%}
+{%- if shots.size >= 7 -%}
+  <section class="w26-close" aria-labelledby="w26-close-title-{{ section.id }}">
+    <div class="w26-wrap">
+      <header class="w26-close__head">
+        <h2 class="w26-display w26-close__title" id="w26-close-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+        <p class="w26-close__text" data-w26-reveal style="--i:1">{{ product.title | remove_first: 'FAII ' | escape }}{% if s.text != blank %} — {{ s.text | escape }}{% endif %}</p>
+      </header>
+      <ul class="w26-close__row" role="list">
+        {%- for i in (4..6) -%}
+          {%- assign shot = shots[i] -%}
+          {%- if shot != blank -%}
+            <li class="w26-close__item" data-w26-reveal style="--i:{{ forloop.index0 }}">
+              {{
+                shot
+                | image_url: width: 1400
+                | image_tag: widths: '360, 540, 720, 960, 1400', sizes: '(min-width: 990px) 30vw, 80vw', loading: 'lazy', decoding: 'async'
+              }}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product up close",
+  "tag": "div",
+  "class": "w26-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Up close" },
+    { "type": "text", "id": "text", "label": "Text after the product name", "default": "the details that make it" }
+  ],
+  "presets": [{ "name": "Product up close" }]
+}
+{% endschema %}

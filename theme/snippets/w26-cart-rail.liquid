@@ -1,0 +1,46 @@
+{%- doc -%}
+  A short rail of other pieces from the drop inside the bag drawer. Leaves out
+  anything already in the bag and renders nothing until the drop has published
+  products. Title is set in Theme settings > Winter 27 drop.
+  @example
+  {% render 'w26-cart-rail' %}
+{%- enddoc -%}
+{%- liquid
+  assign col = settings.w26_collection
+  assign shown = 0
+-%}
+{%- if col != blank and col.products_count > 0 and settings.w26_cart_rail_title != blank -%}
+  {%- capture rail_items -%}
+    {%- for p in col.products limit: 12 -%}
+      {%- liquid
+        assign in_bag = false
+        for item in cart.items
+          if item.product_id == p.id
+            assign in_bag = true
+          endif
+        endfor
+        if in_bag or p.available == false or shown >= 6
+          continue
+        endif
+        assign shown = shown | plus: 1
+      -%}
+      <li class="w26-rail__item">
+        <a class="w26-rail__link" href="{{ p.url }}">
+          <span class="w26-rail__img">
+            {%- if p.featured_image != blank -%}
+              {{ p.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', decoding: 'async', alt: '' }}
+            {%- endif -%}
+          </span>
+          <span class="w26-rail__name">{{ p.title | remove_first: 'FAII ' | escape }}</span>
+          <span class="w26-rail__price">{{ p.price | money }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- if shown > 0 -%}
+    <div class="w26-rail">
+      <p class="w26-meta w26-rail__title">{{ settings.w26_cart_rail_title | escape }}</p>
+      <ul class="w26-rail__list" role="list">{{ rail_items }}</ul>
+    </div>
+  {%- endif -%}
+{%- endif -%}

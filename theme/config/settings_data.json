@@ -339,7 +339,9 @@
     "w26_pre_image_3": "shopify://shop_images/faii-w26-a4594.jpg",
     "w26_pre_image_4": "shopify://shop_images/faii-w26-a4641.jpg",
     "w26_pre_image_5": "shopify://shop_images/faii-w26-a4568.jpg",
-    "w26_pre_image_6": "shopify://shop_images/faii-w26-a4734.jpg"
+    "w26_pre_image_6": "shopify://shop_images/faii-w26-a4734.jpg",
+    "auto_open_cart_drawer": true,
+    "w26_cart_rail_title": "Goes with"
   },
   "presets": {
     "Savor": {

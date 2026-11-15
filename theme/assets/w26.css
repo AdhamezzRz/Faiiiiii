@@ -2927,3 +2927,6 @@ html.w26-preload-out .w26-pre__stack {
   aspect-ratio: auto;
   object-fit: contain;
 }
+.cart-drawer__dialog .cart-items__table-row {
+  grid-template-columns: clamp(4.5rem, 24cqi, 6.5rem) minmax(0, 1fr) minmax(var(--cart-item-price-width), auto);
+}

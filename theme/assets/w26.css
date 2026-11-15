@@ -2169,7 +2169,7 @@ html.w26-preload-out .w26-pre__stack {
   letter-spacing: 0.12em;
   text-align: center;
   text-transform: uppercase;
-  color: rgba(243, 237, 228, 0.66);
+  color: rgba(243, 237, 228, 0.82);
 }
 .cart-drawer__dialog .cart-drawer__heading--empty {
   font-size: clamp(38px, 8vw, 52px);

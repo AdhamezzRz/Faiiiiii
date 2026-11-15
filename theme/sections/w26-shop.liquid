@@ -1,0 +1,76 @@
+{% comment %}
+  Section contract.
+  Product grid for the drop. Renders nothing while the collection has no published
+  products, so it appears by itself at the moment the pieces go live.
+  @example
+  <!-- Pick the collection, or leave empty to use Theme settings > Winter 26 drop -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign col = s.collection | default: settings.w26_collection
+-%}
+{%- if col != blank and col.products_count > 0 -%}
+  <section class="w26-shop" aria-labelledby="w26-shop-title-{{ section.id }}">
+    <div class="w26-wrap">
+      <header class="w26-shop__head">
+        <h2 class="w26-display w26-shop__title" id="w26-shop-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+        {%- if s.link_label != blank -%}
+          <a class="w26-link" href="{{ col.url }}" data-w26-reveal style="--i:1">{{ s.link_label | escape }} <span class="w26-arrow" aria-hidden="true">→</span></a>
+        {%- endif -%}
+      </header>
+      <ul class="w26-shop__grid" role="list">
+        {%- for product in col.products limit: s.limit -%}
+          <li class="w26-card" data-w26-reveal style="--i:{{ forloop.index0 | modulo: 4 }}">
+            <a class="w26-card__link" href="{{ product.url }}">
+              <div class="w26-card__media">
+                {%- if product.featured_image != blank -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 900
+                    | image_tag: widths: '300, 450, 600, 900', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', decoding: 'async', class: 'w26-card__img'
+                  }}
+                {%- endif -%}
+                {%- assign second = product.images[1] -%}
+                {%- if second != blank -%}
+                  {{
+                    second
+                    | image_url: width: 900
+                    | image_tag: widths: '300, 450, 600, 900', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', decoding: 'async', class: 'w26-card__img w26-card__img--alt', alt: ''
+                  }}
+                {%- endif -%}
+                {%- unless product.available -%}
+                  <span class="w26-card__badge w26-meta">{{ s.sold_out_label | escape }}</span>
+                {%- endunless -%}
+              </div>
+              <div class="w26-card__info">
+                <h3 class="w26-card__title">{{ product.title | remove_first: 'FAII ' | escape }}</h3>
+                <p class="w26-card__price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  <span>{{ product.price | money }}</span>
+                </p>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "W26 Shop the drop",
+  "tag": "div",
+  "class": "w26-section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the Winter 26 collection from Theme settings." },
+    { "type": "text", "id": "title", "label": "Title", "default": "Shop the drop" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "View all" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 24, "step": 4, "default": 12 }
+  ],
+  "presets": [{ "name": "W26 Shop the drop" }]
+}
+{% endschema %}

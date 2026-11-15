@@ -1,0 +1,117 @@
+{% comment %}
+  Section contract.
+  The silhouettes of the drop as a typographic index. Each row is one style with its
+  colourways. A row links to its products as soon as they are published; until then
+  it shows the "locked" label.
+  @example
+  <!-- One "Piece" block per style. Pick the products for each colourway in order. -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-pieces" id="w26-pieces" aria-labelledby="w26-pieces-title-{{ section.id }}">
+  <div class="w26-wrap">
+    <header class="w26-pieces__head">
+      <h2 class="w26-display w26-pieces__title" id="w26-pieces-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+      {%- if s.text != blank -%}
+        <p class="w26-pieces__text" data-w26-reveal style="--i:1">{{ s.text | escape }}</p>
+      {%- endif -%}
+    </header>
+
+    <ul class="w26-pieces__list" role="list" data-w26-pieces>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign prods = b.products
+          assign first = prods | first
+          assign img = b.image | default: first.featured_image
+          assign colours = b.colours | split: ','
+          assign min_price = first.price
+          for p in prods
+            if p.price < min_price
+              assign min_price = p.price
+            endif
+          endfor
+        -%}
+        <li
+          class="w26-piece"
+          data-w26-reveal
+          style="--i:{{ forloop.index0 | modulo: 6 }}"
+          {% if img != blank %}data-preview="{{ img | image_url: width: 720 }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <span class="w26-piece__thumb" aria-hidden="true">
+            {%- if img != blank -%}
+              {{ img | image_url: width: 240 | image_tag: loading: 'lazy', decoding: 'async', alt: '' }}
+            {%- endif -%}
+          </span>
+          <div class="w26-piece__main">
+            {%- if first != blank -%}
+              <a class="w26-piece__name w26-display" href="{{ first.url }}">{{ b.title | escape }}</a>
+            {%- else -%}
+              <span class="w26-piece__name w26-display">{{ b.title | escape }}</span>
+            {%- endif -%}
+            {%- if b.note != blank -%}
+              <span class="w26-piece__note">{{ b.note | escape }}</span>
+            {%- endif -%}
+          </div>
+          <ul class="w26-piece__colours" role="list">
+            {%- for c in colours -%}
+              {%- liquid
+                assign pair = c | strip | split: ':'
+                assign c_name = pair[0] | strip
+                assign c_hex = pair[1] | strip | default: '#888'
+                assign c_prod = prods[forloop.index0]
+              -%}
+              <li>
+                {%- if c_prod != blank -%}
+                  <a class="w26-swatch" href="{{ c_prod.url }}" style="--c:{{ c_hex }}" aria-label="{{ c_prod.title | escape }}">
+                    <i aria-hidden="true"></i><span>{{ c_name | escape }}</span>
+                  </a>
+                {%- else -%}
+                  <span class="w26-swatch" style="--c:{{ c_hex }}"><i aria-hidden="true"></i><span>{{ c_name | escape }}</span></span>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          <div class="w26-piece__status w26-meta">
+            {%- if first != blank -%}
+              {%- if prods.size > 1 -%}{{ s.from_label | escape }} {% endif -%}
+              {{- min_price | money -}}
+            {%- else -%}
+              <span class="w26-lock" aria-hidden="true"></span>{{ s.locked_label | escape }}
+            {%- endif -%}
+          </div>
+          <span class="w26-piece__arrow" aria-hidden="true">{% if first != blank %}→{% endif %}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Pieces index",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Six silhouettes" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Twelve colourways between them. Every piece opens for order at 8 PM on 16 November." },
+    { "type": "text", "id": "locked_label", "label": "Label before a piece is published", "default": "Opens 8 PM" },
+    { "type": "text", "id": "from_label", "label": "Price prefix when a style has several colourways", "default": "From" }
+  ],
+  "blocks": [
+    {
+      "type": "piece",
+      "name": "Piece",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Style name", "default": "Belted Wrap Jacket" },
+        { "type": "text", "id": "note", "label": "Short note", "default": "Tie belt, contrast collar" },
+        { "type": "product_list", "id": "products", "label": "Products, one per colourway", "limit": 4 },
+        { "type": "text", "id": "colours", "label": "Colourways", "info": "Name:#hex pairs, comma separated and in the same order as the products. Example: Chocolate:#3a2118, Camel:#b28a5c", "default": "Chocolate:#3a2118" },
+        { "type": "image_picker", "id": "image", "label": "Preview image", "info": "Shown on hover. Falls back to the first product's image." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "W26 Pieces index", "blocks": [{ "type": "piece" }] }]
+}
+{% endschema %}

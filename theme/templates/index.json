@@ -1,0 +1,437 @@
+{
+  "sections": {
+    "w26_hero": {
+      "type": "w26-hero",
+      "settings": {
+        "video": "shopify://files/videos/faii-w26-film-campaign.mp4",
+        "image": "shopify://shop_images/faii-w26-a4457.jpg"
+      }
+    },
+    "w26_statement": {
+      "type": "w26-statement",
+      "settings": {}
+    },
+    "w26_lookbook": {
+      "type": "w26-lookbook",
+      "blocks": {
+        "b1": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4457.jpg",
+            "frame": "Frame 4457",
+            "product": "faii-chocolate-beaded-co-ord",
+            "caption": "Chocolate Beaded Co-Ord",
+            "size": "tall"
+          }
+        },
+        "b2": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4261.jpg",
+            "frame": "Frame 4261",
+            "product": "faii-chocolate-belted-wrap-jacket",
+            "caption": "Chocolate Belted Wrap Jacket",
+            "size": "mid"
+          }
+        },
+        "b3": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4333.jpg",
+            "frame": "Frame 4333",
+            "product": "faii-grey-knot-jacket",
+            "caption": "Grey Knot Jacket",
+            "size": "small"
+          }
+        },
+        "b4": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4594.jpg",
+            "frame": "Frame 4594",
+            "product": "faii-chocolate-hooded-wrap-coat",
+            "caption": "Chocolate Hooded Wrap Coat",
+            "size": "tall"
+          }
+        },
+        "b5": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4367.jpg",
+            "frame": "Frame 4367",
+            "product": "faii-camel-belted-wrap-jacket",
+            "caption": "Camel Belted Wrap Jacket",
+            "size": "mid"
+          }
+        },
+        "b6": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4641.jpg",
+            "frame": "Frame 4641",
+            "product": "faii-black-leather-collar-jacket",
+            "caption": "Black Leather Collar Jacket",
+            "size": "small"
+          }
+        },
+        "b7": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4568.jpg",
+            "frame": "Frame 4568",
+            "product": "faii-ivory-hooded-wrap-coat",
+            "caption": "Ivory Hooded Wrap Coat",
+            "size": "tall"
+          }
+        },
+        "b8": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4734.jpg",
+            "frame": "Frame 4734",
+            "product": "faii-chocolate-crochet-trim-jacket",
+            "caption": "Chocolate Crochet Trim Jacket",
+            "size": "mid"
+          }
+        },
+        "b9": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4695.jpg",
+            "frame": "Frame 4695",
+            "product": "faii-chocolate-leather-collar-jacket",
+            "caption": "Chocolate Leather Collar Jacket",
+            "size": "small"
+          }
+        },
+        "b10": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4776.jpg",
+            "frame": "Frame 4776",
+            "product": "faii-black-knot-jacket",
+            "caption": "Black Knot Jacket",
+            "size": "tall"
+          }
+        },
+        "b11": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4755.jpg",
+            "frame": "Frame 4755",
+            "product": "faii-sand-knot-jacket",
+            "caption": "Sand Knot Jacket",
+            "size": "mid"
+          }
+        },
+        "b12": {
+          "type": "frame",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4536.jpg",
+            "frame": "Frame 4536",
+            "product": "faii-black-beaded-co-ord",
+            "caption": "Black Beaded Co-Ord",
+            "size": "small"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "settings": {}
+    },
+    "w26_pieces": {
+      "type": "w26-pieces",
+      "blocks": {
+        "b1": {
+          "type": "piece",
+          "settings": {
+            "title": "Belted Wrap Jacket",
+            "note": "Tie belt, navy contrast collar",
+            "products": [
+              "faii-chocolate-belted-wrap-jacket",
+              "faii-camel-belted-wrap-jacket"
+            ],
+            "colours": "Chocolate:#3a2118, Camel:#b08d62",
+            "image": "shopify://shop_images/faii-w26-a4261.jpg"
+          }
+        },
+        "b2": {
+          "type": "piece",
+          "settings": {
+            "title": "Knot Jacket",
+            "note": "Collarless, hand-knotted buttons",
+            "products": [
+              "faii-grey-knot-jacket",
+              "faii-black-knot-jacket",
+              "faii-sand-knot-jacket"
+            ],
+            "colours": "Grey:#7c7b7d, Black:#141212, Sand:#d9ccb4",
+            "image": "shopify://shop_images/faii-w26-a4329.jpg"
+          }
+        },
+        "b3": {
+          "type": "piece",
+          "settings": {
+            "title": "Leather Collar Jacket",
+            "note": "Cropped, with patch pockets",
+            "products": [
+              "faii-black-leather-collar-jacket",
+              "faii-chocolate-leather-collar-jacket"
+            ],
+            "colours": "Black:#141212, Chocolate:#3a2118",
+            "image": "shopify://shop_images/faii-w26-a4641.jpg"
+          }
+        },
+        "b4": {
+          "type": "piece",
+          "settings": {
+            "title": "Hooded Wrap Coat",
+            "note": "Deep hood, contrast lining",
+            "products": [
+              "faii-chocolate-hooded-wrap-coat",
+              "faii-ivory-hooded-wrap-coat"
+            ],
+            "colours": "Chocolate and sky:#3a2118, Ivory:#efe7d8",
+            "image": "shopify://shop_images/faii-w26-a4574.jpg"
+          }
+        },
+        "b5": {
+          "type": "piece",
+          "settings": {
+            "title": "Beaded Co-Ord",
+            "note": "Two pieces, beaded at the waist",
+            "products": [
+              "faii-chocolate-beaded-co-ord",
+              "faii-black-beaded-co-ord"
+            ],
+            "colours": "Chocolate:#3a2118, Black:#141212",
+            "image": "shopify://shop_images/faii-w26-a4536.jpg"
+          }
+        },
+        "b6": {
+          "type": "piece",
+          "settings": {
+            "title": "Crochet Trim Jacket",
+            "note": "Outlined in ivory crochet",
+            "products": [
+              "faii-chocolate-crochet-trim-jacket"
+            ],
+            "colours": "Chocolate:#3a2118",
+            "image": "shopify://shop_images/faii-w26-a4734.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ],
+      "settings": {}
+    },
+    "w26_shop": {
+      "type": "w26-shop",
+      "settings": {}
+    },
+    "w26_film": {
+      "type": "w26-film",
+      "blocks": {
+        "b1": {
+          "type": "film",
+          "settings": {
+            "video": "shopify://files/videos/faii-w26-film-couch.mp4",
+            "title": "The ivory coat",
+            "text": "Filmed by the window"
+          }
+        },
+        "b2": {
+          "type": "film",
+          "settings": {
+            "video": "shopify://files/videos/faii-w26-film-crochet.mp4",
+            "title": "The crochet trim jacket",
+            "text": "In the studio"
+          }
+        },
+        "b3": {
+          "type": "film",
+          "settings": {
+            "video": "shopify://files/videos/faii-w26-film-tryon-1.mp4",
+            "title": "The try-on",
+            "text": "Straight off the rail"
+          }
+        },
+        "b4": {
+          "type": "film",
+          "settings": {
+            "video": "shopify://files/videos/faii-w26-film-tryon-2.mp4",
+            "title": "Black, three ways",
+            "text": "Try-on, part two"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {}
+    },
+    "w26_sheet": {
+      "type": "w26-sheet",
+      "blocks": {
+        "b1": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4243.jpg",
+            "caption": "FAII_4243"
+          }
+        },
+        "b2": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4342.jpg",
+            "caption": "FAII_4342"
+          }
+        },
+        "b3": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4374.jpg",
+            "caption": "FAII_4374"
+          }
+        },
+        "b4": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4436.jpg",
+            "caption": "FAII_4436"
+          }
+        },
+        "b5": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4466.jpg",
+            "caption": "FAII_4466"
+          }
+        },
+        "b6": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4563.jpg",
+            "caption": "FAII_4563"
+          }
+        },
+        "b7": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4586.jpg",
+            "caption": "FAII_4586"
+          }
+        },
+        "b8": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4603.jpg",
+            "caption": "FAII_4603"
+          }
+        },
+        "b9": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4619.jpg",
+            "caption": "FAII_4619"
+          }
+        },
+        "b10": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4672.jpg",
+            "caption": "FAII_4672"
+          }
+        },
+        "b11": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4699.jpg",
+            "caption": "FAII_4699"
+          }
+        },
+        "b12": {
+          "type": "print",
+          "settings": {
+            "image": "shopify://shop_images/faii-w26-a4781.jpg",
+            "caption": "FAII_4781"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "settings": {
+        "link": "https://www.instagram.com/faiithelabel"
+      }
+    },
+    "w26_archive": {
+      "type": "w26-archive",
+      "blocks": {
+        "b1": {
+          "type": "collection",
+          "settings": {
+            "collection": "summer-27",
+            "title": "Summer 26",
+            "label": "Shop the collection"
+          }
+        },
+        "b2": {
+          "type": "collection",
+          "settings": {
+            "collection": "ramdan-26",
+            "title": "Ramadan 26",
+            "label": "Shop the collection"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "w26_hero",
+    "w26_statement",
+    "w26_lookbook",
+    "w26_pieces",
+    "w26_shop",
+    "w26_film",
+    "w26_sheet",
+    "w26_archive"
+  ]
+}

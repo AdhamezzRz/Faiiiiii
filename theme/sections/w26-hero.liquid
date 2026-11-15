@@ -1,0 +1,114 @@
+{% comment %}
+  Section contract.
+  Winter 26 hero: a portrait film window flanked by the two halves of the title,
+  with the drop countdown. Switches to the "live" state at the drop time set in
+  Theme settings > Winter 26 drop.
+  @example
+  <!-- First section of the home page -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign col = settings.w26_collection
+  assign shop_url = col.url | default: s.link_post | default: routes.all_products_collection_url
+-%}
+<section class="w26-hero" data-w26-hero aria-labelledby="w26-hero-title-{{ section.id }}">
+  <div class="w26-hero__stage">
+    <div class="w26-hero__film" data-w26-film>
+      {%- if s.video != blank -%}
+        {% render 'w26-video', video: s.video, class: 'w26-hero__media', eager: true %}
+      {%- elsif s.image != blank -%}
+        {{
+          s.image
+          | image_url: width: 1400
+          | image_tag: widths: '480, 720, 960, 1400', sizes: '(min-width: 990px) 30vw, 100vw', class: 'w26-hero__media', loading: 'eager', fetchpriority: 'high'
+        }}
+      {%- endif -%}
+      <span class="w26-hero__scrim" aria-hidden="true"></span>
+      {%- if s.film_caption != blank -%}
+        <span class="w26-hero__cap w26-meta">{{ s.film_caption | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    <h1 class="w26-hero__title" id="w26-hero-title-{{ section.id }}">
+      <span class="w26-hero__word w26-hero__word--a"><span class="w26-hero__ink">{{ s.title_a | escape }}</span></span>
+      <span class="w26-hero__word w26-hero__word--b"><span class="w26-hero__ink">{{ s.title_b | escape }}</span></span>
+    </h1>
+
+    <div class="w26-hero__intro">
+      {%- if s.text != blank -%}
+        <p class="w26-hero__text">{{ s.text | escape }}</p>
+      {%- endif -%}
+      <div class="w26-hero__actions">
+        {%- if s.label_pre != blank -%}
+          <a class="w26-btn w26-btn--solid" href="{{ s.link_pre | default: '#w26-pieces' }}" data-w26-pre>
+            <span>{{ s.label_pre | escape }}</span>
+          </a>
+        {%- endif -%}
+        {%- if s.label_post != blank -%}
+          <a class="w26-btn w26-btn--solid" href="{{ shop_url }}" data-w26-post>
+            <span>{{ s.label_post | escape }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="w26-hero__clock">
+      <div data-w26-pre>
+        {%- if s.clock_label != blank -%}
+          <p class="w26-meta w26-hero__clock-label">{{ s.clock_label | escape }}</p>
+        {%- endif -%}
+        {% render 'w26-countdown',
+          class: 'w26-hero__cd',
+          label_days: s.label_days,
+          label_hours: s.label_hours,
+          label_minutes: s.label_minutes,
+          label_seconds: s.label_seconds,
+          aria: s.clock_label
+        %}
+        {%- if settings.w26_drop_label != blank -%}
+          <p class="w26-meta w26-hero__when">{{ settings.w26_drop_label | escape }}</p>
+        {%- endif -%}
+      </div>
+      <div data-w26-post>
+        {%- if s.live_label != blank -%}
+          <p class="w26-meta w26-hero__clock-label"><span class="w26-dot" aria-hidden="true"></span>{{ s.live_label | escape }}</p>
+        {%- endif -%}
+        {%- if s.live_text != blank -%}
+          <p class="w26-hero__live">{{ s.live_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Hero",
+  "tag": "div",
+  "class": "w26-section w26-section--hero",
+  "settings": [
+    { "type": "paragraph", "content": "The drop time and the Winter 26 collection are set in Theme settings > Winter 26 drop." },
+    { "type": "video", "id": "video", "label": "Film (portrait)" },
+    { "type": "image_picker", "id": "image", "label": "Image (used when no film is set)" },
+    { "type": "text", "id": "film_caption", "label": "Film caption", "default": "Winter 26 — the film" },
+    { "type": "header", "content": "Title" },
+    { "type": "text", "id": "title_a", "label": "Title, left of the film", "default": "Winter" },
+    { "type": "text", "id": "title_b", "label": "Title, right of the film", "default": "26" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Six silhouettes for the cold. Belted wraps, knot-button jackets, leather collars and hooded coats, in chocolate, black, camel, sand, grey and ivory." },
+    { "type": "header", "content": "Before the drop" },
+    { "type": "text", "id": "clock_label", "label": "Countdown label", "default": "The drop opens in" },
+    { "type": "text", "id": "label_days", "label": "Days label", "default": "Days" },
+    { "type": "text", "id": "label_hours", "label": "Hours label", "default": "Hours" },
+    { "type": "text", "id": "label_minutes", "label": "Minutes label", "default": "Min" },
+    { "type": "text", "id": "label_seconds", "label": "Seconds label", "default": "Sec" },
+    { "type": "text", "id": "label_pre", "label": "Button label", "default": "Preview the pieces" },
+    { "type": "url", "id": "link_pre", "label": "Button link" },
+    { "type": "header", "content": "After the drop" },
+    { "type": "text", "id": "live_label", "label": "Live label", "default": "Now live" },
+    { "type": "text", "id": "live_text", "label": "Live text", "default": "Winter 26 is here." },
+    { "type": "text", "id": "label_post", "label": "Button label", "default": "Shop Winter 26" },
+    { "type": "url", "id": "link_post", "label": "Button link (defaults to the Winter 26 collection)" }
+  ],
+  "presets": [{ "name": "W26 Hero" }]
+}
+{% endschema %}

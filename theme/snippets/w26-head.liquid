@@ -1,0 +1,17 @@
+{%- comment -%}
+  Winter 26 design layer. Rendered once from layout/theme.liquid.
+  Sets the drop state before first paint, then loads the stylesheet and script.
+{%- endcomment -%}
+{%- assign w26_drop_at = settings.w26_drop_at | default: '2026-11-16T20:00:00+02:00' -%}
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('w26-js');
+    var t = Date.parse({{ w26_drop_at | json }});
+    window.W26 = { dropAt: isNaN(t) ? 0 : t, ready: false };
+    if (window.W26.dropAt && Date.now() >= window.W26.dropAt) d.classList.add('w26-live');
+    setTimeout(function () { if (!window.W26.ready) d.classList.remove('w26-js'); }, 4000);
+  })();
+</script>
+{{ 'w26.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'w26.js' | asset_url }}" defer></script>

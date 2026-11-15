@@ -1,0 +1,73 @@
+{% comment %}
+  Section contract.
+  Portrait films from the shoot. Each plays muted while it is on screen;
+  the sound button turns its audio on.
+  @example
+  <!-- Add "Film" blocks with Shopify-hosted videos -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-film" aria-labelledby="w26-film-title-{{ section.id }}">
+  <div class="w26-wrap">
+    <header class="w26-film__head">
+      <h2 class="w26-display w26-film__title" id="w26-film-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+      {%- if s.text != blank -%}
+        <p class="w26-film__text" data-w26-reveal style="--i:1">{{ s.text | escape }}</p>
+      {%- endif -%}
+    </header>
+  </div>
+  <ul class="w26-film__row" role="list">
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+      {%- if b.video == blank -%}{%- continue -%}{%- endif -%}
+      <li class="w26-film__item" data-w26-reveal style="--i:{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        <div class="w26-film__player" data-w26-player>
+          {% render 'w26-video', video: b.video, class: 'w26-film__video' %}
+          <button
+            type="button"
+            class="w26-film__sound"
+            data-w26-sound
+            aria-pressed="false"
+            aria-label="{{ s.sound_label | escape }}"
+          >
+            <span class="w26-film__sound-off w26-meta">{{ s.sound_on_text | escape }}</span>
+            <span class="w26-film__sound-on w26-meta">{{ s.sound_off_text | escape }}</span>
+          </button>
+        </div>
+        {%- if b.title != blank -%}
+          <p class="w26-film__name">{{ b.title | escape }}</p>
+        {%- endif -%}
+        {%- if b.text != blank -%}
+          <p class="w26-film__cap w26-meta">{{ b.text | escape }}</p>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Films",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "In motion" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "The pieces as they move: on the couch, on the rail, in the studio." },
+    { "type": "text", "id": "sound_label", "label": "Sound button accessible label", "default": "Toggle sound" },
+    { "type": "text", "id": "sound_on_text", "label": "Sound button text when muted", "default": "Sound on" },
+    { "type": "text", "id": "sound_off_text", "label": "Sound button text when playing sound", "default": "Sound off" }
+  ],
+  "blocks": [
+    {
+      "type": "film",
+      "name": "Film",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video (portrait)" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "text", "label": "Caption" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "W26 Films" }]
+}
+{% endschema %}

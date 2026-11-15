@@ -1,0 +1,48 @@
+{% comment %}
+  Section contract.
+  Slim bar above the header on every page. Counts down to the drop, then switches
+  to the "live" message by itself.
+  @example
+  <!-- Lives in the header group, above the header -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign col = settings.w26_collection
+  assign post_url = s.link_post | default: col.url | default: routes.all_products_collection_url
+-%}
+<div class="w26-bar" role="region" aria-label="{{ s.aria | escape }}">
+  <a class="w26-bar__inner" href="{{ s.link_pre | default: routes.root_url }}" data-w26-pre>
+    <span class="w26-bar__text">{{ s.text_pre | escape }}</span>
+    {%- if s.detail_pre != blank -%}
+      <span class="w26-bar__detail">{{ s.detail_pre | escape }}</span>
+    {%- endif -%}
+    {% render 'w26-countdown', class: 'w26-bar__cd', compact: true, aria: s.text_pre %}
+  </a>
+  <a class="w26-bar__inner" href="{{ post_url }}" data-w26-post>
+    <span class="w26-dot" aria-hidden="true"></span>
+    <span class="w26-bar__text">{{ s.text_post | escape }}</span>
+    {%- if s.detail_post != blank -%}
+      <span class="w26-bar__cta">{{ s.detail_post | escape }} <span class="w26-arrow" aria-hidden="true">→</span></span>
+    {%- endif -%}
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "W26 Drop bar",
+  "tag": "div",
+  "class": "w26-bar-section",
+  "settings": [
+    { "type": "text", "id": "aria", "label": "Accessible name", "default": "Winter 26 drop" },
+    { "type": "header", "content": "Before the drop" },
+    { "type": "text", "id": "text_pre", "label": "Text", "default": "Winter 26 drops in" },
+    { "type": "text", "id": "detail_pre", "label": "Detail (hidden on phones)", "default": "16 Nov · 8 PM Cairo" },
+    { "type": "url", "id": "link_pre", "label": "Link" },
+    { "type": "header", "content": "After the drop" },
+    { "type": "text", "id": "text_post", "label": "Text", "default": "Winter 26 is live" },
+    { "type": "text", "id": "detail_post", "label": "Link label", "default": "Shop the drop" },
+    { "type": "url", "id": "link_post", "label": "Link (defaults to the Winter 26 collection)" }
+  ],
+  "presets": [{ "name": "W26 Drop bar" }]
+}
+{% endschema %}

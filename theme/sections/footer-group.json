@@ -1,0 +1,21 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "w26_footer": {
+      "type": "w26-footer",
+      "settings": {
+        "menu_a": "footer",
+        "menu_b": "policies",
+        "menu_a_title": "Shop",
+        "menu_b_title": "Customer care",
+        "instagram": "https://www.instagram.com/faiithelabel",
+        "instagram_label": "@faiithelabel",
+        "contact_text": "Cairo, Egypt"
+      }
+    }
+  },
+  "order": [
+    "w26_footer"
+  ]
+}

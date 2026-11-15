@@ -1,0 +1,72 @@
+{% comment %}
+  Section contract.
+  Earlier collections as two or three wide image links.
+  @example
+  <!-- Add "Collection" blocks -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-archive" aria-labelledby="w26-archive-title-{{ section.id }}">
+  <div class="w26-wrap">
+    <header class="w26-archive__head">
+      <h2 class="w26-display w26-archive__title" id="w26-archive-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+      {%- if s.text != blank -%}
+        <p class="w26-archive__text" data-w26-reveal style="--i:1">{{ s.text | escape }}</p>
+      {%- endif -%}
+    </header>
+    <ul class="w26-archive__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign col = b.collection
+          if col == blank
+            continue
+          endif
+          assign img = b.image | default: col.image | default: col.products.first.featured_image
+        -%}
+        <li class="w26-archive__item" data-w26-reveal style="--i:{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <a class="w26-archive__link" href="{{ col.url }}">
+            <span class="w26-archive__media">
+              {%- if img != blank -%}
+                {{
+                  img
+                  | image_url: width: 1400
+                  | image_tag: widths: '480, 720, 960, 1400', sizes: '(min-width: 750px) 48vw, 100vw', loading: 'lazy', decoding: 'async', alt: ''
+                }}
+              {%- endif -%}
+            </span>
+            <span class="w26-archive__info">
+              <span class="w26-archive__name w26-display">{{ b.title | default: col.title | escape }}</span>
+              <span class="w26-meta">{{ b.label | escape }} <span class="w26-arrow" aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Archive",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Earlier chapters" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Summer and Ramadan are still open while pieces last." }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title (defaults to the collection title)" },
+        { "type": "text", "id": "label", "label": "Link label", "default": "Shop the collection" },
+        { "type": "image_picker", "id": "image", "label": "Image (defaults to the collection image)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "W26 Archive" }]
+}
+{% endschema %}

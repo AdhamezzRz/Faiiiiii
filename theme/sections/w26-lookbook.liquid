@@ -1,0 +1,113 @@
+{% comment %}
+  Section contract.
+  The campaign as a sideways gallery. On large screens the page pins and the frames
+  travel horizontally as you scroll; on touch screens it is a swipeable row.
+  @example
+  <!-- Add "Frame" blocks, one per campaign image -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-look" data-w26-look aria-labelledby="w26-look-title-{{ section.id }}">
+  <div class="w26-look__pin">
+    <div class="w26-look__track" data-w26-look-track>
+      <header class="w26-look__head">
+        {%- if s.label != blank -%}
+          <p class="w26-meta">{{ s.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="w26-look__title w26-display" id="w26-look-title-{{ section.id }}">{{ s.title | escape }}</h2>
+        {%- if s.text != blank -%}
+          <p class="w26-look__text">{{ s.text | escape }}</p>
+        {%- endif -%}
+        {%- if s.hint != blank -%}
+          <p class="w26-meta w26-look__hint" aria-hidden="true">{{ s.hint | escape }} <span class="w26-arrow">→</span></p>
+        {%- endif -%}
+      </header>
+
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          if b.image == blank
+            continue
+          endif
+          assign frame_link = b.product.url | default: b.link
+          assign frame_caption = b.caption
+          if frame_caption == blank and b.product != blank
+            assign frame_caption = b.product.title | remove_first: 'FAII '
+          endif
+        -%}
+        <figure class="w26-look__frame w26-look__frame--{{ b.size }}" {{ block.shopify_attributes }}>
+          {%- if frame_link != blank -%}
+            <a class="w26-look__media" href="{{ frame_link }}"{% if frame_caption != blank %} aria-label="{{ frame_caption | escape }}"{% endif %}>
+          {%- else -%}
+            <div class="w26-look__media">
+          {%- endif -%}
+            {{
+              b.image
+              | image_url: width: 1200
+              | image_tag: widths: '360, 540, 720, 900, 1200', sizes: '(min-width: 990px) 34vw, 72vw', loading: 'lazy', decoding: 'async'
+            }}
+          {%- if frame_link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+          {%- if frame_caption != blank or b.frame != blank -%}
+            <figcaption class="w26-look__caption">
+              {%- if b.frame != blank -%}<span class="w26-meta">{{ b.frame | escape }}</span>{%- endif -%}
+              {%- if frame_caption != blank -%}<span class="w26-look__name">{{ frame_caption | escape }}</span>{%- endif -%}
+            </figcaption>
+          {%- endif -%}
+        </figure>
+      {%- endfor -%}
+
+      {%- if s.end_title != blank -%}
+        <div class="w26-look__end">
+          <p class="w26-look__end-title w26-display">{{ s.end_title | escape }}</p>
+          {%- if s.end_label != blank -%}
+            <a class="w26-btn" href="{{ s.end_link | default: '#w26-pieces' }}"><span>{{ s.end_label | escape }}</span></a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="w26-look__bar" aria-hidden="true"><i data-w26-look-bar></i></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Lookbook",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 14,
+  "settings": [
+    { "type": "text", "id": "label", "label": "Small label", "default": "Campaign" },
+    { "type": "text", "id": "title", "label": "Title", "default": "The edit" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Shot in the studio over one long evening. Every frame is a piece from the drop." },
+    { "type": "text", "id": "hint", "label": "Scroll hint", "default": "Keep scrolling" },
+    { "type": "header", "content": "Last panel" },
+    { "type": "text", "id": "end_title", "label": "Title", "default": "Twelve pieces. One night." },
+    { "type": "text", "id": "end_label", "label": "Button label", "default": "See the pieces" },
+    { "type": "url", "id": "end_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "frame",
+      "name": "Frame",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "frame", "label": "Frame label", "info": "For example: Frame 4457" },
+        { "type": "product", "id": "product", "label": "Product", "info": "The frame links to this product once it is published." },
+        { "type": "text", "id": "caption", "label": "Caption (defaults to the product title)" },
+        { "type": "url", "id": "link", "label": "Link (used when no product is set)" },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "options": [
+            { "value": "tall", "label": "Tall" },
+            { "value": "mid", "label": "Medium, set low" },
+            { "value": "small", "label": "Small, set high" }
+          ],
+          "default": "tall"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "W26 Lookbook" }]
+}
+{% endschema %}

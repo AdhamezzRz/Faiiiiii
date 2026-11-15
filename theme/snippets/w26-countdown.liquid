@@ -1,0 +1,33 @@
+{%- doc -%}
+  Live countdown to the drop time set in Theme settings > Winter 26 drop.
+  @param {string} [class] - Extra classes
+  @param {string} [label_days] - Label under the days number
+  @param {string} [label_hours] - Label under the hours number
+  @param {string} [label_minutes] - Label under the minutes number
+  @param {string} [label_seconds] - Label under the seconds number
+  @param {string} [aria] - Accessible name for the timer
+  @param {boolean} [compact] - Renders "0d 00h 00m 00s" on one line
+  @example
+  {% render 'w26-countdown', class: 'w26-hero__cd', label_days: 'Days' %}
+{%- enddoc -%}
+<span
+  class="w26-cd{% if compact %} w26-cd--compact{% endif %} {{ class }}"
+  data-w26-countdown
+  role="timer"
+  aria-label="{{ aria | default: 'Time until the drop' | escape }}"
+>
+  {%- if compact -%}
+    <span class="w26-cd__num" data-u="d"><i>0</i><i>0</i></span><span class="w26-cd__s">d</span>
+    <span class="w26-cd__num" data-u="h"><i>0</i><i>0</i></span><span class="w26-cd__s">h</span>
+    <span class="w26-cd__num" data-u="m"><i>0</i><i>0</i></span><span class="w26-cd__s">m</span>
+    <span class="w26-cd__num" data-u="s"><i>0</i><i>0</i></span><span class="w26-cd__s">s</span>
+  {%- else -%}
+    <span class="w26-cd__unit"><span class="w26-cd__num" data-u="d"><i>0</i><i>0</i></span><span class="w26-cd__lab">{{ label_days | default: 'Days' | escape }}</span></span>
+    <span class="w26-cd__sep" aria-hidden="true">:</span>
+    <span class="w26-cd__unit"><span class="w26-cd__num" data-u="h"><i>0</i><i>0</i></span><span class="w26-cd__lab">{{ label_hours | default: 'Hours' | escape }}</span></span>
+    <span class="w26-cd__sep" aria-hidden="true">:</span>
+    <span class="w26-cd__unit"><span class="w26-cd__num" data-u="m"><i>0</i><i>0</i></span><span class="w26-cd__lab">{{ label_minutes | default: 'Min' | escape }}</span></span>
+    <span class="w26-cd__sep" aria-hidden="true">:</span>
+    <span class="w26-cd__unit"><span class="w26-cd__num" data-u="s"><i>0</i><i>0</i></span><span class="w26-cd__lab">{{ label_seconds | default: 'Sec' | escape }}</span></span>
+  {%- endif -%}
+</span>

@@ -1,0 +1,70 @@
+{% comment %}
+  Section contract.
+  A wall of instant-film prints from the shoot. Each print "develops" from blank
+  as it scrolls into view.
+  @example
+  <!-- Add "Print" blocks; six per row on desktop, three on phones -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-sheet" aria-labelledby="w26-sheet-title-{{ section.id }}">
+  <div class="w26-wrap">
+    <header class="w26-sheet__head">
+      <h2 class="w26-display w26-sheet__title" id="w26-sheet-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+      {%- if s.text != blank -%}
+        <p class="w26-sheet__text" data-w26-reveal style="--i:1">{{ s.text | escape }}</p>
+      {%- endif -%}
+    </header>
+    <ul class="w26-sheet__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if b.image == blank -%}{%- continue -%}{%- endif -%}
+        <li class="w26-print" data-w26-develop style="--i:{{ forloop.index0 | modulo: 6 }}" {{ block.shopify_attributes }}>
+          {%- if b.link != blank -%}<a href="{{ b.link }}" class="w26-print__inner">{%- else -%}<div class="w26-print__inner">{%- endif -%}
+            <span class="w26-print__photo">
+              {{
+                b.image
+                | image_url: width: 600
+                | image_tag: widths: '200, 300, 450, 600', sizes: '(min-width: 990px) 15vw, 30vw', loading: 'lazy', decoding: 'async'
+              }}
+            </span>
+            {%- if b.caption != blank -%}
+              <span class="w26-print__cap w26-meta">{{ b.caption | escape }}</span>
+            {%- endif -%}
+          {%- if b.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if s.link_label != blank and s.link != blank -%}
+      <p class="w26-sheet__more" data-w26-reveal>
+        <a class="w26-link" href="{{ s.link }}">{{ s.link_label | escape }} <span class="w26-arrow" aria-hidden="true">→</span></a>
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "W26 Studio prints",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 18,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "From the studio" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Instant film from the day we shot Winter 26." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Follow @faiithelabel" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "print",
+      "name": "Print",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Caption" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "W26 Studio prints" }]
+}
+{% endschema %}

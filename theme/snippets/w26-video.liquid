@@ -1,0 +1,26 @@
+{%- doc -%}
+  Muted inline video from a Shopify-hosted video, with its poster.
+  @param {object} video - Shopify video object
+  @param {string} [class] - Classes for the <video>
+  @param {boolean} [eager] - Autoplay at once (hero). Otherwise the script loads and plays it when it scrolls into view.
+  @example
+  {% render 'w26-video', video: section.settings.video, class: 'w26-hero__video', eager: true %}
+{%- enddoc -%}
+{%- liquid
+  assign src = ''
+  for s in video.sources
+    if s.format == 'mp4' and src == ''
+      assign src = s.url
+    endif
+  endfor
+  assign poster = video.preview_image | image_url: width: 900
+-%}
+<video
+  class="{{ class }}"
+  muted
+  loop
+  playsinline
+  {% if eager %}autoplay preload="metadata" src="{{ src }}"{% else %}preload="none" data-w26-video data-src="{{ src }}"{% endif %}
+  poster="{{ poster }}"
+  aria-label="{{ video.alt | escape }}"
+></video>

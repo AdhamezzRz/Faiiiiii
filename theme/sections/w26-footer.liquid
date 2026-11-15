@@ -1,0 +1,136 @@
+{% comment %}
+  Section contract.
+  Site footer: newsletter signup, two menus, contact details and the wordmark.
+  @example
+  <!-- Lives in the footer group on every page -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign menu_a = s.menu_a
+  assign menu_b = s.menu_b
+-%}
+<footer class="w26-footer">
+  <div class="w26-wrap">
+    <div class="w26-footer__top">
+      <div class="w26-footer__news">
+        <h2 class="w26-display w26-footer__title">{{ s.title | escape }}</h2>
+        {%- if s.text != blank -%}
+          <p class="w26-footer__text">{{ s.text | escape }}</p>
+        {%- endif -%}
+        {%- form 'customer', class: 'w26-news', id: 'w26-news' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {%- if form.posted_successfully? -%}
+            <p class="w26-news__ok" role="status">{{ s.success | escape }}</p>
+          {%- else -%}
+            <div class="w26-news__field">
+              <label class="visually-hidden" for="w26-news-email">{{ s.placeholder | escape }}</label>
+              <input
+                id="w26-news-email"
+                type="email"
+                name="contact[email]"
+                autocomplete="email"
+                required
+                placeholder="{{ s.placeholder | escape }}"
+                {% if form.errors %}aria-invalid="true" aria-describedby="w26-news-error"{% endif %}
+              >
+              <button type="submit" class="w26-news__btn">
+                <span>{{ s.button | escape }}</span><span class="w26-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p class="w26-news__err" id="w26-news-error" role="alert">{{ form.errors.messages | first }}</p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      <nav class="w26-footer__nav" aria-label="{{ s.nav_label | escape }}">
+        {%- if menu_a.links.size > 0 -%}
+          <div class="w26-footer__col">
+            <p class="w26-meta w26-footer__col-title">{{ s.menu_a_title | default: menu_a.title | escape }}</p>
+            <ul role="list">
+              {%- for link in menu_a.links -%}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        {%- if menu_b.links.size > 0 -%}
+          <div class="w26-footer__col">
+            <p class="w26-meta w26-footer__col-title">{{ s.menu_b_title | default: menu_b.title | escape }}</p>
+            <ul role="list">
+              {%- for link in menu_b.links -%}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        <div class="w26-footer__col">
+          <p class="w26-meta w26-footer__col-title">{{ s.contact_title | escape }}</p>
+          <ul role="list">
+            {%- if s.instagram != blank -%}
+              <li><a href="{{ s.instagram }}" target="_blank" rel="noopener">{{ s.instagram_label | escape }}</a></li>
+            {%- endif -%}
+            {%- if s.email != blank -%}
+              <li><a href="mailto:{{ s.email | escape }}">{{ s.email | escape }}</a></li>
+            {%- endif -%}
+            {%- if s.contact_text != blank -%}
+              <li class="w26-footer__plain">{{ s.contact_text | escape }}</li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="w26-footer__mark" aria-hidden="true">
+      {%- if settings.logo_inverse != blank -%}
+        {{ settings.logo_inverse | image_url: width: 1200 | image_tag: loading: 'lazy', decoding: 'async', alt: '', sizes: '(min-width: 990px) 40vw, 70vw', widths: '300, 600, 900, 1200' }}
+      {%- else -%}
+        <span class="w26-display">{{ shop.name | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="w26-footer__base">
+      <p class="w26-meta">© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}{% if s.base_text != blank %} · {{ s.base_text | escape }}{% endif %}</p>
+      {%- if s.show_payment -%}
+        <ul class="w26-footer__pay" role="list">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'w26-footer__pay-icon' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "W26 Footer",
+  "tag": "div",
+  "class": "w26-footer-section",
+  "settings": [
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "title", "label": "Title", "default": "First to know." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Drop dates, early access and restocks, sent only when there is something to say." },
+    { "type": "text", "id": "placeholder", "label": "Email field label", "default": "Email address" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "You're on the list. We'll write when the next drop is close." },
+    { "type": "header", "content": "Menus" },
+    { "type": "text", "id": "nav_label", "label": "Accessible name", "default": "Footer" },
+    { "type": "link_list", "id": "menu_a", "label": "First menu", "default": "footer" },
+    { "type": "text", "id": "menu_a_title", "label": "First menu title", "default": "Shop" },
+    { "type": "link_list", "id": "menu_b", "label": "Second menu" },
+    { "type": "text", "id": "menu_b_title", "label": "Second menu title", "default": "Customer care" },
+    { "type": "header", "content": "Contact" },
+    { "type": "text", "id": "contact_title", "label": "Title", "default": "Contact" },
+    { "type": "url", "id": "instagram", "label": "Instagram link" },
+    { "type": "text", "id": "instagram_label", "label": "Instagram label", "default": "Instagram" },
+    { "type": "text", "id": "email", "label": "Email" },
+    { "type": "text", "id": "contact_text", "label": "Extra line", "default": "Cairo, Egypt" },
+    { "type": "header", "content": "Base" },
+    { "type": "text", "id": "base_text", "label": "Text after the copyright", "default": "All rights reserved" },
+    { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true }
+  ],
+  "presets": [{ "name": "W26 Footer" }]
+}
+{% endschema %}

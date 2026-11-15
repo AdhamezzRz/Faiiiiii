@@ -139,7 +139,7 @@
       return im;
     });
     document.body.appendChild(box);
-    var tx = 0, ty = 0, x = 0, y = 0, raf = 0, on = false;
+    var tx = 0, ty = 0, x = 0, y = 0, raf = 0, on = false, shownAt = 0;
     function loop() {
       x += (tx - x) * 0.16; y += (ty - y) * 0.16;
       box.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
@@ -155,13 +155,21 @@
         imgs.forEach(function (im, j) { im.classList.toggle('is-active', i === j); });
         aim(e);
         if (!on) { x = tx; y = ty; }
-        on = true; box.classList.add('is-on');
+        on = true; shownAt = window.pageYOffset; box.classList.add('is-on');
         if (!raf) raf = requestAnimationFrame(loop);
       });
     });
-    list.addEventListener('pointermove', aim, { passive: true });
+    list.addEventListener('pointermove', function (e) {
+      aim(e);
+      if (!on && e.target && e.target.closest && e.target.closest('.w26-piece')) {
+        x = tx; y = ty; on = true; shownAt = window.pageYOffset; box.classList.add('is-on');
+        if (!raf) raf = requestAnimationFrame(loop);
+      }
+    }, { passive: true });
     list.addEventListener('pointerleave', function () { on = false; box.classList.remove('is-on'); });
-    window.addEventListener('scroll', function () { if (on) { on = false; box.classList.remove('is-on'); } }, { passive: true });
+    window.addEventListener('scroll', function () {
+      if (on && Math.abs(window.pageYOffset - shownAt) > 80) { on = false; box.classList.remove('is-on'); }
+    }, { passive: true });
   }
 
   /* ---------- Scroll-linked pieces: hero parallax, statement words, lookbook ---------- */

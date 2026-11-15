@@ -200,6 +200,9 @@
                   class="cart-drawer__summary"
                 >
                   {% render 'cart-summary', section_id: section.id %}
+                  {%- if settings.w26_cart_note != blank -%}
+                    <p class="w26-cart-note">{{ settings.w26_cart_note | escape }}</p>
+                  {%- endif -%}
                 </div>
               </scroll-hint>
             {%- endif -%}

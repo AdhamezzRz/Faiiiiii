@@ -92,6 +92,16 @@
 
     <div class="w26-footer__base">
       <p class="w26-meta">© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}{% if s.base_text != blank %} · {{ s.base_text | escape }}{% endif %}</p>
+      {%- if s.credit_label != blank -%}
+        <p class="w26-meta w26-footer__credit">
+          {{- s.credit_text | escape }}
+          {% if s.credit_link != blank -%}
+            <a href="{{ s.credit_link }}" target="_blank" rel="noopener">{{ s.credit_label | escape }}</a>
+          {%- else -%}
+            {{ s.credit_label | escape }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
       {%- if s.show_payment -%}
         <ul class="w26-footer__pay" role="list">
           {%- for type in shop.enabled_payment_types -%}
@@ -129,6 +139,9 @@
     { "type": "text", "id": "contact_text", "label": "Extra line", "default": "Cairo, Egypt" },
     { "type": "header", "content": "Base" },
     { "type": "text", "id": "base_text", "label": "Text after the copyright", "default": "All rights reserved" },
+    { "type": "text", "id": "credit_text", "label": "Credit text", "default": "Powered by" },
+    { "type": "text", "id": "credit_label", "label": "Credit name", "default": "najmarketing.co" },
+    { "type": "url", "id": "credit_link", "label": "Credit link" },
     { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true }
   ],
   "presets": [{ "name": "Site footer" }]

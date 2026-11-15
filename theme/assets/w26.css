@@ -2930,3 +2930,8 @@ html.w26-preload-out .w26-pre__stack {
 .cart-drawer__dialog .cart-items__table-row {
   grid-template-columns: clamp(4.5rem, 24cqi, 6.5rem) minmax(0, 1fr) minmax(var(--cart-item-price-width), auto);
 }
+.w26-footer__credit a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}

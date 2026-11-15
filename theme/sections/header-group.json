@@ -4,7 +4,10 @@
   "sections": {
     "w26_dropbar": {
       "type": "w26-dropbar",
-      "settings": {}
+      "settings": {
+        "text_pre": "Winter 27 drops",
+        "detail_pre": "16 Nov · 8 PM Cairo"
+      }
     },
     "header_section": {
       "type": "header",

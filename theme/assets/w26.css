@@ -2708,3 +2708,203 @@ html.w26-preload-out .w26-pre__stack {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Calm pass: fewer type styles per screen, more air, one job per area
+   ========================================================================== */
+
+/* Drop bar without a countdown (home page, where the hero carries it) */
+.w26-bar--plain .w26-bar__detail {
+  display: inline;
+}
+
+/* Hero: one line of text, one button */
+.w26-hero__text {
+  max-width: 30ch;
+  font-size: 16px;
+}
+.w26-hero__actions {
+  margin-top: 22px;
+}
+
+/* Lookbook and palette headers without supporting text */
+.w26-look__title {
+  margin-top: 0;
+}
+.w26-palette__head {
+  margin-bottom: clamp(24px, 3vw, 44px);
+}
+
+/* Shop page: quiet tabs, one big title */
+.w26-colhead {
+  padding-top: clamp(22px, 3vw, 44px);
+}
+.w26-coltabs {
+  gap: 6px clamp(18px, 2.2vw, 30px);
+  margin-bottom: clamp(28px, 4vw, 56px);
+}
+.w26-coltabs a {
+  font-family: var(--w26-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.w26-colhead__title {
+  margin: 0 0 14px;
+  font-size: clamp(48px, 7.6vw, 128px);
+}
+.w26-toolbar {
+  border-top: 0;
+  padding-top: 0;
+}
+.w26-toolbar__filters {
+  align-items: center;
+  gap: 8px 10px;
+}
+.w26-toolbar__count {
+  margin-right: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.w26-chip {
+  min-height: 34px;
+  padding: 0 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+.w26-shopgrid__grid {
+  gap: 36px 14px;
+}
+@media (min-width: 990px) {
+  .w26-shopgrid__grid {
+    gap: 64px 24px;
+  }
+}
+
+/* Product page: title, price, choose, buy — then the fold-outs */
+.media-gallery--grid .media-gallery__grid > li::after {
+  content: none;
+}
+.product-details h1 {
+  font-size: clamp(34px, 3.3vw, 56px);
+  line-height: 1;
+}
+.product-details product-price {
+  font-family: var(--w26-sans);
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.product-details .variant-option legend {
+  font-family: var(--w26-sans);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.product-details .variant-option__button-label__text {
+  font-family: var(--w26-sans);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.product-details .quantity-selector-wrapper {
+  display: none;
+}
+.product-details .add-to-cart-button {
+  min-height: 58px;
+  letter-spacing: 0.16em;
+}
+.product-details .w26-facts {
+  margin-top: 10px;
+}
+.w26-facts__summary {
+  padding: 18px 0;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.w26-facts__body {
+  padding-bottom: 22px;
+  color: rgba(23, 16, 13, 0.78);
+}
+.w26-facts__body ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+.w26-facts__body li {
+  margin-bottom: 4px;
+}
+.w26-ways__label .w26-meta {
+  font-family: var(--w26-sans);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Bag drawer: one heading, plain sans for everything else */
+.cart-drawer__dialog .cart-drawer__header {
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+.cart-drawer__dialog .cart-drawer__heading {
+  align-items: center;
+  font-size: 34px;
+  line-height: 1;
+}
+.cart-drawer__dialog .cart-drawer__heading .cart-bubble {
+  margin-top: 0;
+}
+.cart-drawer__dialog .w26-meter {
+  padding-block: 10px 26px;
+}
+.cart-drawer__dialog .w26-meter__text {
+  margin-bottom: 12px;
+  font-family: var(--w26-sans);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(243, 237, 228, 0.78);
+}
+.cart-drawer__dialog .cart-items__title {
+  font-family: var(--w26-sans);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+.cart-drawer__dialog .cart-items__variants,
+.cart-drawer__dialog .cart-items__variant {
+  font-family: var(--w26-sans);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cart-drawer__dialog .cart-items__table-row {
+  padding-bottom: 22px;
+}
+.cart-drawer__dialog .cart-totals__total-label {
+  font-family: var(--w26-sans);
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cart-drawer__dialog .cart-totals__total-value {
+  font-family: var(--w26-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.cart-drawer__dialog .cart-totals__tax-note {
+  opacity: 0.6;
+}
+.cart-drawer__dialog .cart-drawer__summary {
+  padding-top: 22px;
+  padding-bottom: 26px;
+}
+.cart-drawer__dialog .cart__checkout-button {
+  margin-top: 6px;
+  min-height: 56px;
+  letter-spacing: 0.16em;
+}

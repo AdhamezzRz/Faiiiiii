@@ -6,7 +6,14 @@
   @example
   <!-- One "Piece" block per style. Pick the products for each colourway in order. -->
 {% endcomment %}
-{%- assign s = section.settings -%}
+{%- liquid
+  assign s = section.settings
+  assign show_index = true
+  if s.hide_when_live and settings.w26_collection.products_count > 0
+    assign show_index = false
+  endif
+-%}
+{%- if show_index -%}
 <section class="w26-pieces" id="w26-pieces" aria-labelledby="w26-pieces-title-{{ section.id }}">
   <div class="w26-wrap">
     <header class="w26-pieces__head">
@@ -86,6 +93,7 @@
     </ul>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {
@@ -96,6 +104,7 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Title", "default": "Six silhouettes" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Twelve colourways between them. Every piece opens for order at 8 PM on 16 November." },
+    { "type": "checkbox", "id": "hide_when_live", "label": "Hide once the drop products are published", "info": "The shop grid takes over from the index.", "default": true },
     { "type": "text", "id": "locked_label", "label": "Label before a piece is published", "default": "Opens 8 PM" },
     { "type": "text", "id": "from_label", "label": "Price prefix when a style has several colourways", "default": "From" }
   ],

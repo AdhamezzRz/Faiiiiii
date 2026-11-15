@@ -332,7 +332,7 @@
     "w26_free_shipping": 7000,
     "w26_free_shipping_text": "[amount] away from free delivery",
     "w26_free_shipping_done": "Free delivery unlocked",
-    "w26_cart_note": "Cairo in 5 working days · Governorates in 7",
+    "w26_cart_note": "",
     "w26_cart_empty_button": "Shop the collection",
     "w26_pre_image_1": "shopify://shop_images/faii-w26-a4457.jpg",
     "w26_pre_image_2": "shopify://shop_images/faii-w26-a4261.jpg",
@@ -341,7 +341,7 @@
     "w26_pre_image_5": "shopify://shop_images/faii-w26-a4568.jpg",
     "w26_pre_image_6": "shopify://shop_images/faii-w26-a4734.jpg",
     "auto_open_cart_drawer": true,
-    "w26_cart_rail_title": "Goes with"
+    "w26_cart_rail_title": ""
   },
   "presets": {
     "Savor": {

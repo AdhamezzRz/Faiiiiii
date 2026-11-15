@@ -28,13 +28,9 @@
   {%- endif -%}
   <div class="w26-wrap w26-colhead__inner">
     <div class="w26-colhead__copy">
-      <p class="w26-meta w26-colhead__label">
-        {%- if locked -%}
-          {{ s.locked_label | escape }}
-        {%- else -%}
-          {{ collection.products_count }} {{ s.count_label | escape }}
-        {%- endif -%}
-      </p>
+      {%- if locked -%}
+        <p class="w26-meta w26-colhead__label">{{ s.locked_label | escape }}</p>
+      {%- endif -%}
       <h1 class="w26-display w26-colhead__title">{{ collection.title | remove: ',' | escape }}</h1>
       {%- if collection.description != blank -%}
         <div class="w26-colhead__text">{{ collection.description }}</div>

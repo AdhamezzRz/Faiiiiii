@@ -6,6 +6,16 @@
 {%- enddoc -%}
 {%- assign bs = block.settings -%}
 <div class="w26-facts" {{ block.shopify_attributes }}>
+  {%- assign w26_p = closest.product | default: product -%}
+  {%- if bs.show_description and w26_p.description != blank -%}
+    <details class="w26-facts__row" open>
+      <summary class="w26-facts__summary">
+        <span>{{ bs.description_title | escape }}</span>
+        <span class="w26-facts__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="w26-facts__body">{{ w26_p.description }}</div>
+    </details>
+  {%- endif -%}
   {%- for i in (1..3) -%}
     {%- liquid
       assign t_key = 'title_' | append: i
@@ -30,6 +40,8 @@
   "name": "Drop details rows",
   "tag": null,
   "settings": [
+    { "type": "checkbox", "id": "show_description", "label": "Show the product description as the first row", "default": true },
+    { "type": "text", "id": "description_title", "label": "Description row title", "default": "Details" },
     { "type": "text", "id": "title_1", "label": "Row 1 title", "default": "Delivery" },
     { "type": "richtext", "id": "text_1", "label": "Row 1 text", "default": "<p>Cairo in 5 working days, other governorates in 7. Free delivery on orders over EGP 7,000.</p>" },
     { "type": "text", "id": "title_2", "label": "Row 2 title", "default": "Returns and exchanges" },

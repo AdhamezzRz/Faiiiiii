@@ -10,13 +10,15 @@
   assign col = settings.w26_collection
   assign post_url = s.link_post | default: col.url | default: routes.all_products_collection_url
 -%}
-<div class="w26-bar" role="region" aria-label="{{ s.aria | escape }}">
+<div class="w26-bar{% if template.name == 'index' %} w26-bar--plain{% endif %}" role="region" aria-label="{{ s.aria | escape }}">
   <a class="w26-bar__inner" href="{{ s.link_pre | default: routes.root_url }}" data-w26-pre>
     <span class="w26-bar__text">{{ s.text_pre | escape }}</span>
     {%- if s.detail_pre != blank -%}
       <span class="w26-bar__detail">{{ s.detail_pre | escape }}</span>
     {%- endif -%}
-    {% render 'w26-countdown', class: 'w26-bar__cd', compact: true, aria: s.text_pre %}
+    {%- unless template.name == 'index' -%}
+      {% render 'w26-countdown', class: 'w26-bar__cd', compact: true, aria: s.text_pre %}
+    {%- endunless -%}
   </a>
   <a class="w26-bar__inner" href="{{ post_url }}" data-w26-post>
     <span class="w26-dot" aria-hidden="true"></span>
@@ -35,7 +37,7 @@
   "settings": [
     { "type": "text", "id": "aria", "label": "Accessible name", "default": "Winter 27 drop" },
     { "type": "header", "content": "Before the drop" },
-    { "type": "text", "id": "text_pre", "label": "Text", "default": "Winter 27 drops in" },
+    { "type": "text", "id": "text_pre", "label": "Text", "default": "Winter 27 drops" },
     { "type": "text", "id": "detail_pre", "label": "Detail (hidden on phones)", "default": "16 Nov · 8 PM Cairo" },
     { "type": "url", "id": "link_pre", "label": "Link" },
     { "type": "header", "content": "After the drop" },

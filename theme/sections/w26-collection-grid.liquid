@@ -16,6 +16,7 @@
     <div class="w26-wrap">
       <div class="w26-toolbar">
         <div class="w26-toolbar__filters">
+          <span class="w26-toolbar__count">{{ collection.products_count }} {{ s.count_label | escape }}</span>
           {%- for filter in collection.filters -%}
             {%- if filter.type == 'list' and filter.values.size <= 6 -%}
               {%- for v in filter.values -%}
@@ -146,6 +147,7 @@
   "class": "w26-section",
   "settings": [
     { "type": "range", "id": "per_page", "label": "Products per page", "min": 12, "max": 48, "step": 4, "default": 24 },
+    { "type": "text", "id": "count_label", "label": "Text after the product count", "default": "pieces" },
     { "type": "text", "id": "sort_label", "label": "Sort label", "default": "Sort" },
     { "type": "text", "id": "view_label", "label": "View switch accessible name", "default": "View" },
     { "type": "text", "id": "view_grid", "label": "Grid view label", "default": "Grid" },

@@ -4,7 +4,10 @@
       "type": "w26-hero",
       "settings": {
         "video": "shopify://files/videos/faii-w26-film-campaign.mp4",
-        "image": "shopify://shop_images/faii-w26-a4457.jpg"
+        "image": "shopify://shop_images/faii-w26-a4457.jpg",
+        "film_caption": "",
+        "label_pre": "",
+        "text": "Six silhouettes for the cold, in six colours."
       }
     },
     "w26_lookbook": {
@@ -145,7 +148,10 @@
         "b11",
         "b12"
       ],
-      "settings": {}
+      "settings": {
+        "text": "",
+        "label": ""
+      }
     },
     "w26_pieces": {
       "type": "w26-pieces",
@@ -154,7 +160,7 @@
           "type": "piece",
           "settings": {
             "title": "Belted Wrap Jacket",
-            "note": "Tie belt, navy contrast collar",
+            "note": "",
             "products": [
               "faii-chocolate-belted-wrap-jacket",
               "faii-camel-belted-wrap-jacket"
@@ -167,7 +173,7 @@
           "type": "piece",
           "settings": {
             "title": "Knot Jacket",
-            "note": "Collarless, hand-knotted buttons",
+            "note": "",
             "products": [
               "faii-grey-knot-jacket",
               "faii-black-knot-jacket",
@@ -181,7 +187,7 @@
           "type": "piece",
           "settings": {
             "title": "Leather Collar Jacket",
-            "note": "Cropped, with patch pockets",
+            "note": "",
             "products": [
               "faii-black-leather-collar-jacket",
               "faii-chocolate-leather-collar-jacket"
@@ -194,7 +200,7 @@
           "type": "piece",
           "settings": {
             "title": "Hooded Wrap Coat",
-            "note": "Deep hood, contrast lining",
+            "note": "",
             "products": [
               "faii-chocolate-hooded-wrap-coat",
               "faii-ivory-hooded-wrap-coat"
@@ -207,7 +213,7 @@
           "type": "piece",
           "settings": {
             "title": "Beaded Co-Ord",
-            "note": "Two pieces, beaded at the waist",
+            "note": "",
             "products": [
               "faii-chocolate-beaded-co-ord",
               "faii-black-beaded-co-ord"
@@ -220,7 +226,7 @@
           "type": "piece",
           "settings": {
             "title": "Crochet Trim Jacket",
-            "note": "Outlined in ivory crochet",
+            "note": "",
             "products": [
               "faii-chocolate-crochet-trim-jacket"
             ],
@@ -237,7 +243,10 @@
         "b5",
         "b6"
       ],
-      "settings": {}
+      "settings": {
+        "hide_when_live": true,
+        "text": "Every piece opens for order at 8 PM on 16 November."
+      }
     },
     "w26_shop": {
       "type": "w26-shop",
@@ -251,7 +260,7 @@
           "settings": {
             "video": "shopify://files/videos/faii-w26-film-couch.mp4",
             "title": "The ivory coat",
-            "text": "Filmed by the window"
+            "text": ""
           }
         },
         "b2": {
@@ -259,7 +268,7 @@
           "settings": {
             "video": "shopify://files/videos/faii-w26-film-crochet.mp4",
             "title": "The crochet trim jacket",
-            "text": "In the studio"
+            "text": ""
           }
         },
         "b3": {
@@ -267,130 +276,17 @@
           "settings": {
             "video": "shopify://files/videos/faii-w26-film-tryon-1.mp4",
             "title": "The try-on",
-            "text": "Straight off the rail"
-          }
-        },
-        "b4": {
-          "type": "film",
-          "settings": {
-            "video": "shopify://files/videos/faii-w26-film-tryon-2.mp4",
-            "title": "Black, three ways",
-            "text": "Try-on, part two"
+            "text": ""
           }
         }
       },
       "block_order": [
         "b1",
         "b2",
-        "b3",
-        "b4"
-      ],
-      "settings": {}
-    },
-    "w26_sheet": {
-      "type": "w26-sheet",
-      "blocks": {
-        "b1": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4243.jpg",
-            "caption": "FAII_4243"
-          }
-        },
-        "b2": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4342.jpg",
-            "caption": "FAII_4342"
-          }
-        },
-        "b3": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4374.jpg",
-            "caption": "FAII_4374"
-          }
-        },
-        "b4": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4436.jpg",
-            "caption": "FAII_4436"
-          }
-        },
-        "b5": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4466.jpg",
-            "caption": "FAII_4466"
-          }
-        },
-        "b6": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4563.jpg",
-            "caption": "FAII_4563"
-          }
-        },
-        "b7": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4586.jpg",
-            "caption": "FAII_4586"
-          }
-        },
-        "b8": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4603.jpg",
-            "caption": "FAII_4603"
-          }
-        },
-        "b9": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4619.jpg",
-            "caption": "FAII_4619"
-          }
-        },
-        "b10": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4672.jpg",
-            "caption": "FAII_4672"
-          }
-        },
-        "b11": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4699.jpg",
-            "caption": "FAII_4699"
-          }
-        },
-        "b12": {
-          "type": "print",
-          "settings": {
-            "image": "shopify://shop_images/faii-w26-a4781.jpg",
-            "caption": "FAII_4781"
-          }
-        }
-      },
-      "block_order": [
-        "b1",
-        "b2",
-        "b3",
-        "b4",
-        "b5",
-        "b6",
-        "b7",
-        "b8",
-        "b9",
-        "b10",
-        "b11",
-        "b12"
+        "b3"
       ],
       "settings": {
-        "link": "https://www.instagram.com/faiithelabel"
+        "text": ""
       }
     },
     "w26_archive": {
@@ -417,7 +313,9 @@
         "b1",
         "b2"
       ],
-      "settings": {}
+      "settings": {
+        "text": ""
+      }
     },
     "w26_palette": {
       "type": "w26-palette",
@@ -543,7 +441,9 @@
         "b6",
         "b7"
       ],
-      "settings": {}
+      "settings": {
+        "text": ""
+      }
     }
   },
   "order": [
@@ -553,7 +453,6 @@
     "w26_pieces",
     "w26_shop",
     "w26_film",
-    "w26_sheet",
     "w26_archive"
   ]
 }

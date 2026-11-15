@@ -7,10 +7,6 @@
         "image": "shopify://shop_images/faii-w26-a4457.jpg"
       }
     },
-    "w26_statement": {
-      "type": "w26-statement",
-      "settings": {}
-    },
     "w26_lookbook": {
       "type": "w26-lookbook",
       "blocks": {
@@ -422,11 +418,137 @@
         "b2"
       ],
       "settings": {}
+    },
+    "w26_palette": {
+      "type": "w26-palette",
+      "blocks": {
+        "b1": {
+          "type": "colour",
+          "settings": {
+            "name": "Chocolate",
+            "colour": "#3a2118",
+            "ink": "light",
+            "count": "5 pieces",
+            "image": "shopify://shop_images/faii-w26-a4457.jpg",
+            "text": "The colour the whole drop is built on.",
+            "pieces": "Belted Wrap Jacket, Leather Collar Jacket, Hooded Wrap Coat, Beaded Co-Ord, Crochet Trim Jacket",
+            "products": [
+              "faii-chocolate-belted-wrap-jacket",
+              "faii-chocolate-leather-collar-jacket",
+              "faii-chocolate-hooded-wrap-coat",
+              "faii-chocolate-beaded-co-ord",
+              "faii-chocolate-crochet-trim-jacket"
+            ]
+          }
+        },
+        "b2": {
+          "type": "colour",
+          "settings": {
+            "name": "Black",
+            "colour": "#141212",
+            "ink": "light",
+            "count": "3 pieces",
+            "image": "shopify://shop_images/faii-w26-a4641.jpg",
+            "text": "Black on black, down to the knots.",
+            "pieces": "Knot Jacket, Leather Collar Jacket, Beaded Co-Ord",
+            "products": [
+              "faii-black-knot-jacket",
+              "faii-black-leather-collar-jacket",
+              "faii-black-beaded-co-ord"
+            ]
+          }
+        },
+        "b3": {
+          "type": "colour",
+          "settings": {
+            "name": "Camel",
+            "colour": "#b08d62",
+            "ink": "dark",
+            "count": "1 piece",
+            "image": "shopify://shop_images/faii-w26-a4367.jpg",
+            "text": "Warm camel against a navy collar.",
+            "pieces": "Belted Wrap Jacket",
+            "products": [
+              "faii-camel-belted-wrap-jacket"
+            ]
+          }
+        },
+        "b4": {
+          "type": "colour",
+          "settings": {
+            "name": "Grey",
+            "colour": "#7c7b7d",
+            "ink": "light",
+            "count": "1 piece",
+            "image": "shopify://shop_images/faii-w26-a4329.jpg",
+            "text": "Soft grey, fastened in black.",
+            "pieces": "Knot Jacket",
+            "products": [
+              "faii-grey-knot-jacket"
+            ]
+          }
+        },
+        "b5": {
+          "type": "colour",
+          "settings": {
+            "name": "Sand",
+            "colour": "#d9ccb4",
+            "ink": "dark",
+            "count": "1 piece",
+            "image": "shopify://shop_images/faii-w26-a4755.jpg",
+            "text": "The lightest piece in the drop.",
+            "pieces": "Knot Jacket",
+            "products": [
+              "faii-sand-knot-jacket"
+            ]
+          }
+        },
+        "b6": {
+          "type": "colour",
+          "settings": {
+            "name": "Ivory",
+            "colour": "#efe7d8",
+            "ink": "dark",
+            "count": "1 piece",
+            "image": "shopify://shop_images/faii-w26-a4570.jpg",
+            "text": "Tone on tone, belted.",
+            "pieces": "Hooded Wrap Coat",
+            "products": [
+              "faii-ivory-hooded-wrap-coat"
+            ]
+          }
+        },
+        "b7": {
+          "type": "colour",
+          "settings": {
+            "name": "Sky",
+            "colour": "#a9c6e2",
+            "ink": "dark",
+            "count": "The lining",
+            "image": "shopify://shop_images/faii-w26-a4563.jpg",
+            "text": "Only there when the hood falls open.",
+            "pieces": "Inside the Chocolate Hooded Wrap Coat",
+            "products": [
+              "faii-chocolate-hooded-wrap-coat"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "w26_hero",
-    "w26_statement",
+    "w26_palette",
     "w26_lookbook",
     "w26_pieces",
     "w26_shop",

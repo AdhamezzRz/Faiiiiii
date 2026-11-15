@@ -1,0 +1,110 @@
+{% comment %}
+  Section contract.
+  The drop as a colour card. Each colour is a band; the open band widens to show
+  its campaign image and the pieces cut in that colour. Hover or tap to open.
+  @example
+  <!-- One "Colour" block per colourway -->
+{% endcomment %}
+{%- assign s = section.settings -%}
+<section class="w26-palette" data-w26-palette aria-labelledby="w26-palette-title-{{ section.id }}">
+  <div class="w26-wrap w26-palette__head">
+    <h2 class="w26-display w26-palette__title" id="w26-palette-title-{{ section.id }}" data-w26-reveal>{{ s.title | escape }}</h2>
+    {%- if s.text != blank -%}
+      <p class="w26-palette__text" data-w26-reveal style="--i:1">{{ s.text | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <ul class="w26-palette__bands" role="list" style="--n:{{ section.blocks.size }}" data-w26-reveal>
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign b = block.settings
+        assign pieces = b.pieces | split: ','
+        assign prods = b.products
+      -%}
+      <li
+        class="w26-band w26-band--{{ b.ink }}{% if forloop.first %} is-open{% endif %}"
+        style="--c:{{ b.colour }}"
+        data-w26-band
+        {{ block.shopify_attributes }}
+      >
+        <button
+          type="button"
+          class="w26-band__tab"
+          aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="w26-band-{{ block.id }}"
+        >
+          <span class="w26-band__name w26-display">{{ b.name | escape }}</span>
+          {%- if b.count != blank -%}
+            <span class="w26-meta w26-band__count">{{ b.count | escape }}</span>
+          {%- endif -%}
+        </button>
+        <div class="w26-band__panel" id="w26-band-{{ block.id }}">
+          {%- if b.image != blank -%}
+            <div class="w26-band__media">
+              {{
+                b.image
+                | image_url: width: 1400
+                | image_tag: widths: '480, 720, 960, 1400', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', decoding: 'async'
+              }}
+            </div>
+          {%- endif -%}
+          <div class="w26-band__body">
+            {%- if b.text != blank -%}
+              <p class="w26-band__lead">{{ b.text | escape }}</p>
+            {%- endif -%}
+            <ul class="w26-band__pieces" role="list">
+              {%- if prods.size > 0 -%}
+                {%- for p in prods -%}
+                  <li><a href="{{ p.url }}">{{ p.title | remove_first: 'FAII ' | escape }} <span class="w26-arrow" aria-hidden="true">→</span></a></li>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for piece in pieces -%}
+                  <li>{{ piece | strip | escape }}</li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ul>
+          </div>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Drop palette",
+  "tag": "div",
+  "class": "w26-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Six colours, one lining" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Pick a colour to see what it comes in." }
+  ],
+  "blocks": [
+    {
+      "type": "colour",
+      "name": "Colour",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Colour name", "default": "Chocolate" },
+        { "type": "color", "id": "colour", "label": "Colour", "default": "#3a2118" },
+        {
+          "type": "select",
+          "id": "ink",
+          "label": "Text on this colour",
+          "options": [
+            { "value": "light", "label": "Light text" },
+            { "value": "dark", "label": "Dark text" }
+          ],
+          "default": "light"
+        },
+        { "type": "text", "id": "count", "label": "Small label", "default": "5 pieces" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "pieces", "label": "Pieces in this colour", "info": "Comma separated. Shown until the products below are published." },
+        { "type": "product_list", "id": "products", "label": "Products in this colour", "limit": 6 }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Drop palette", "blocks": [{ "type": "colour" }] }]
+}
+{% endschema %}

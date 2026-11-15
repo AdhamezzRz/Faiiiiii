@@ -1,0 +1,86 @@
+{% comment %}
+  Section contract.
+  Product page band for drop products only: the piece's campaign photograph beside
+  a short line, then a rail of the rest of the drop. Renders nothing for products
+  outside the drop (those keep the theme's recommendations).
+  @example
+  <!-- Under the product information section -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign col = settings.w26_collection
+  assign in_drop = false
+  for t in product.tags
+    if t contains 'w26-'
+      assign in_drop = true
+    endif
+  endfor
+  assign campaign = product.images | last
+-%}
+{%- if in_drop and col != blank -%}
+  <section class="w26-story" aria-labelledby="w26-story-title-{{ section.id }}">
+    <div class="w26-wrap w26-story__top">
+      {%- if campaign != blank -%}
+        <div class="w26-story__media" data-w26-reveal>
+          {{
+            campaign
+            | image_url: width: 1400
+            | image_tag: widths: '480, 720, 960, 1400', sizes: '(min-width: 990px) 38vw, 100vw', loading: 'lazy', decoding: 'async'
+          }}
+        </div>
+      {%- endif -%}
+      <div class="w26-story__copy">
+        {%- if s.label != blank -%}
+          <p class="w26-meta w26-story__label" data-w26-reveal>{{ s.label | escape }}</p>
+        {%- endif -%}
+        <h2 class="w26-display w26-story__title" id="w26-story-title-{{ section.id }}" data-w26-reveal style="--i:1">{{ s.title | escape }}</h2>
+        {%- if s.text != blank -%}
+          <p class="w26-story__text" data-w26-reveal style="--i:2">{{ s.text | escape }}</p>
+        {%- endif -%}
+        <a class="w26-btn" href="{{ col.url }}" data-w26-reveal style="--i:3"><span>{{ s.button | escape }}</span></a>
+      </div>
+    </div>
+
+    <div class="w26-story__rail-head w26-wrap">
+      <h3 class="w26-display w26-story__rail-title">{{ s.rail_title | escape }}</h3>
+    </div>
+    <ul class="w26-story__rail" role="list">
+      {%- for p in col.products limit: 13 -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        <li class="w26-story__item">
+          <a class="w26-card__link" href="{{ p.url }}">
+            <div class="w26-card__media">
+              {%- if p.featured_image != blank -%}
+                {{
+                  p.featured_image
+                  | image_url: width: 700
+                  | image_tag: widths: '300, 450, 700', sizes: '(min-width: 990px) 22vw, 60vw', loading: 'lazy', decoding: 'async', class: 'w26-card__img'
+                }}
+              {%- endif -%}
+            </div>
+            <div class="w26-card__info">
+              <p class="w26-card__title">{{ p.title | remove_first: 'FAII ' | escape }}</p>
+              <p class="w26-card__price">{{ p.price | money }}</p>
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Drop product story",
+  "tag": "div",
+  "class": "w26-section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Small label", "default": "Winter 27" },
+    { "type": "text", "id": "title", "label": "Title", "default": "As seen in the campaign" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Shot in the studio over one long evening, with the rest of the drop." },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Shop the collection" },
+    { "type": "text", "id": "rail_title", "label": "Rail title", "default": "The rest of the drop" }
+  ],
+  "presets": [{ "name": "Drop product story" }]
+}
+{% endschema %}

@@ -3,7 +3,7 @@
   Product grid for the drop. Renders nothing while the collection has no published
   products, so it appears by itself at the moment the pieces go live.
   @example
-  <!-- Pick the collection, or leave empty to use Theme settings > Winter 26 drop -->
+  <!-- Pick the collection, or leave empty to use Theme settings > Winter 27 drop -->
 {% endcomment %}
 {%- liquid
   assign s = section.settings
@@ -61,16 +61,16 @@
 
 {% schema %}
 {
-  "name": "W26 Shop the drop",
+  "name": "Drop shop grid",
   "tag": "div",
   "class": "w26-section",
   "settings": [
-    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the Winter 26 collection from Theme settings." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the Winter 27 collection from Theme settings." },
     { "type": "text", "id": "title", "label": "Title", "default": "Shop the drop" },
     { "type": "text", "id": "link_label", "label": "Link label", "default": "View all" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
     { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 24, "step": 4, "default": 12 }
   ],
-  "presets": [{ "name": "W26 Shop the drop" }]
+  "presets": [{ "name": "Drop shop grid" }]
 }
 {% endschema %}

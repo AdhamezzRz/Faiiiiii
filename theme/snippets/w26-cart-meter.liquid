@@ -1,0 +1,27 @@
+{%- doc -%}
+  Free-delivery meter for the cart drawer. Threshold and wording are set in
+  Theme settings > Winter 27 drop. Renders nothing when the threshold is 0.
+  @example
+  {% render 'w26-cart-meter' %}
+{%- enddoc -%}
+{%- liquid
+  assign threshold = settings.w26_free_shipping | default: 0 | times: 100
+  assign left = threshold | minus: cart.total_price
+  assign ratio = 1
+  if left > 0
+    assign ratio = cart.total_price | times: 1.0 | divided_by: threshold
+  endif
+-%}
+{%- if threshold > 0 -%}
+  <div class="w26-meter{% if left <= 0 %} is-done{% endif %}">
+    <p class="w26-meter__text">
+      {%- if left > 0 -%}
+        {%- assign left_money = left | money -%}
+        {{ settings.w26_free_shipping_text | escape | replace: '[amount]', left_money }}
+      {%- else -%}
+        {{ settings.w26_free_shipping_done | escape }}
+      {%- endif -%}
+    </p>
+    <div class="w26-meter__bar" aria-hidden="true"><i style="--p:{{ ratio | round: 3 }}"></i></div>
+  </div>
+{%- endif -%}

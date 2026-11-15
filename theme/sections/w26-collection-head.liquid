@@ -1,0 +1,69 @@
+{% comment %}
+  Section contract.
+  Collection page header. For the drop collection it is a night banner; while that
+  collection has no published products it shows the countdown instead of an empty grid.
+  @example
+  <!-- First section of the collection template -->
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign is_drop = false
+  if settings.w26_collection != blank and collection.handle == settings.w26_collection.handle
+    assign is_drop = true
+  endif
+  assign locked = false
+  if is_drop and collection.products_count == 0
+    assign locked = true
+  endif
+-%}
+<section class="w26-colhead{% if is_drop %} w26-colhead--drop{% endif %}{% if locked %} w26-colhead--locked{% endif %}"{% if locked %} data-w26-locked{% endif %}>
+  <div class="w26-wrap w26-colhead__inner">
+    <div class="w26-colhead__copy">
+      <p class="w26-meta w26-colhead__label">
+        {%- if locked -%}
+          {{ s.locked_label | escape }}
+        {%- else -%}
+          {{ collection.products_count }} {{ s.count_label | escape }}
+        {%- endif -%}
+      </p>
+      <h1 class="w26-display w26-colhead__title">{{ collection.title | remove: ',' | escape }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="w26-colhead__text">{{ collection.description }}</div>
+      {%- endif -%}
+      {%- if locked -%}
+        <div class="w26-colhead__clock">
+          {% render 'w26-countdown', class: 'w26-colhead__cd', aria: s.locked_label %}
+          {%- if settings.w26_drop_label != blank -%}
+            <p class="w26-meta w26-colhead__when">{{ settings.w26_drop_label | escape }}</p>
+          {%- endif -%}
+        </div>
+        {%- if s.locked_button != blank -%}
+          <a class="w26-btn" href="{{ routes.root_url }}#w26-pieces"><span>{{ s.locked_button | escape }}</span></a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    {%- if is_drop and collection.image != blank -%}
+      <div class="w26-colhead__media">
+        {{
+          collection.image
+          | image_url: width: 1400
+          | image_tag: widths: '480, 720, 960, 1400', sizes: '(min-width: 990px) 40vw, 100vw', loading: 'eager', fetchpriority: 'high'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection header",
+  "tag": "div",
+  "class": "w26-section w26-section--colhead",
+  "settings": [
+    { "type": "text", "id": "count_label", "label": "Text after the product count", "default": "pieces" },
+    { "type": "header", "content": "Before the drop" },
+    { "type": "text", "id": "locked_label", "label": "Label", "default": "Opens in" },
+    { "type": "text", "id": "locked_button", "label": "Button label", "default": "Preview the pieces" }
+  ]
+}
+{% endschema %}

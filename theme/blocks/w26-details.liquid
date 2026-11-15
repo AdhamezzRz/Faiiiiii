@@ -1,0 +1,42 @@
+{%- doc -%}
+  Three fold-out rows under the buy buttons (delivery, returns, anything else).
+  Native details/summary, so they work without scripts.
+  @example
+  {% content_for 'block', type: 'w26-details', id: 'details' %}
+{%- enddoc -%}
+{%- assign bs = block.settings -%}
+<div class="w26-facts" {{ block.shopify_attributes }}>
+  {%- for i in (1..3) -%}
+    {%- liquid
+      assign t_key = 'title_' | append: i
+      assign c_key = 'text_' | append: i
+      assign row_title = bs[t_key]
+      assign row_text = bs[c_key]
+    -%}
+    {%- if row_title != blank and row_text != blank -%}
+      <details class="w26-facts__row">
+        <summary class="w26-facts__summary">
+          <span>{{ row_title | escape }}</span>
+          <span class="w26-facts__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="w26-facts__body">{{ row_text }}</div>
+      </details>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Drop details rows",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title_1", "label": "Row 1 title", "default": "Delivery" },
+    { "type": "richtext", "id": "text_1", "label": "Row 1 text", "default": "<p>Cairo in 5 working days, other governorates in 7. Free delivery on orders over EGP 7,000.</p>" },
+    { "type": "text", "id": "title_2", "label": "Row 2 title", "default": "Returns and exchanges" },
+    { "type": "richtext", "id": "text_2", "label": "Row 2 text", "default": "<p>See our refund policy for how returns and exchanges work.</p>" },
+    { "type": "text", "id": "title_3", "label": "Row 3 title" },
+    { "type": "richtext", "id": "text_3", "label": "Row 3 text" }
+  ],
+  "presets": [{ "name": "Drop details rows" }]
+}
+{% endschema %}

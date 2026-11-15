@@ -1,0 +1,38 @@
+{%- comment -%}
+  Opening sequence for the home page: campaign frames flick through a small window
+  while a frame counter runs, then the screen lifts to reveal the hero.
+  Shown once per browser session, never in the theme editor, never under reduced motion.
+  Rendered from layout/theme.liquid. Images are set in Theme settings > Winter 27 drop.
+{%- endcomment -%}
+{%- if template.name == 'index' and settings.w26_pre_enable and request.design_mode == false -%}
+  <div class="w26-pre" data-w26-preloader aria-hidden="true">
+    <div class="w26-pre__top">
+      {%- if settings.logo_inverse != blank -%}
+        {{ settings.logo_inverse | image_url: width: 300 | image_tag: class: 'w26-pre__logo', loading: 'eager', alt: '' }}
+      {%- endif -%}
+    </div>
+    <div class="w26-pre__stack">
+      {%- for i in (1..6) -%}
+        {%- assign key = 'w26_pre_image_' | append: i -%}
+        {%- assign img = settings[key] -%}
+        {%- if img != blank -%}
+          {{ img | image_url: width: 520 | image_tag: loading: 'eager', decoding: 'async', alt: '', sizes: '260px', widths: '260, 520' }}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="w26-pre__meta w26-meta">
+      <span>{{ settings.w26_pre_text | escape }}</span>
+      <span>
+        {{- settings.w26_pre_count_label | escape }}
+        <span
+          data-w26-pre-count
+          data-from="{{ settings.w26_pre_from | default: 4233 }}"
+          data-to="{{ settings.w26_pre_to | default: 4785 }}"
+        >
+          {{- settings.w26_pre_from | default: 4233 -}}
+        </span>
+      </span>
+    </div>
+    <div class="w26-pre__bar"><i data-w26-pre-bar></i></div>
+  </div>
+{%- endif -%}

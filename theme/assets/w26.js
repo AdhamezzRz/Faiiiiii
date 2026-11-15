@@ -32,8 +32,10 @@
       if (!W.dropAt) return;
       var left = W.dropAt - Date.now();
       if (left <= 0) {
+        var wasLive = root.classList.contains('w26-live');
         root.classList.add('w26-live');
         put('d', 0); put('h', 0); put('m', 0); put('s', 0);
+        if (!wasLive && document.querySelector('[data-w26-locked]')) setTimeout(function () { location.reload(); }, 2500);
         return;
       }
       var s = Math.floor(left / 1000);
@@ -69,7 +71,10 @@
     var hero = document.querySelector('[data-w26-hero]');
     if (!hero) return null;
     var go = function () { requestAnimationFrame(function () { hero.classList.add('is-ready'); }); };
-    if (document.fonts && document.fonts.ready) {
+    if (root.classList.contains('w26-preload')) {
+      document.addEventListener('w26:intro', go, { once: true });
+      setTimeout(go, 6200);
+    } else if (document.fonts && document.fonts.ready) {
       var done = false;
       var once = function () { if (!done) { done = true; go(); } };
       document.fonts.ready.then(once);
@@ -226,14 +231,74 @@
     }
   }
 
+  /* ---------- Opening sequence ---------- */
+  function initPreloader() {
+    var el = document.querySelector('[data-w26-preloader]');
+    var fire = function () { document.dispatchEvent(new CustomEvent('w26:intro')); };
+    var drop = function () { if (el && el.parentNode) el.parentNode.removeChild(el); };
+    if (!el || !root.classList.contains('w26-preload')) { drop(); fire(); return; }
+    var imgs = $$('.w26-pre__stack img', el);
+    var count = el.querySelector('[data-w26-pre-count]');
+    var bar = el.querySelector('[data-w26-pre-bar]');
+    var from = count ? parseInt(count.getAttribute('data-from'), 10) || 0 : 0;
+    var to = count ? parseInt(count.getAttribute('data-to'), 10) || 100 : 100;
+    var t0 = performance.now(), dur = 1900, lastFlick = -999, cur = -1;
+    function step(now) {
+      var p = clamp((now - t0) / dur, 0, 1);
+      if (count) count.textContent = String(Math.round(from + (to - from) * p));
+      if (bar) bar.style.setProperty('--p', p.toFixed(3));
+      if (imgs.length && now - lastFlick > 150) {
+        for (var k = 1; k <= imgs.length; k++) {
+          var n = (cur + k) % imgs.length;
+          if (imgs[n].complete && imgs[n].naturalWidth) {
+            if (cur >= 0) imgs[cur].classList.remove('is-on');
+            imgs[n].classList.add('is-on'); cur = n; lastFlick = now; break;
+          }
+        }
+      }
+      if (p < 1) { requestAnimationFrame(step); return; }
+      root.classList.add('w26-preload-out');
+      fire();
+      setTimeout(function () {
+        root.classList.remove('w26-preload', 'w26-preload-out');
+        drop();
+      }, 1050);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Palette: one band open at a time ---------- */
+  function initPalette() {
+    $$('[data-w26-palette]').forEach(function (wrap) {
+      var bands = $$('[data-w26-band]', wrap);
+      function open(band) {
+        bands.forEach(function (b) {
+          var on = b === band;
+          b.classList.toggle('is-open', on);
+          var tab = b.querySelector('.w26-band__tab');
+          if (tab) tab.setAttribute('aria-expanded', on ? 'true' : 'false');
+        });
+      }
+      bands.forEach(function (band) {
+        var tab = band.querySelector('.w26-band__tab');
+        if (tab) tab.addEventListener('click', function () { open(band); });
+        band.addEventListener('pointerenter', function (e) {
+          if (e.pointerType === 'mouse' && deskMq.matches) open(band);
+        });
+      });
+    });
+  }
+
   function boot() {
     W.ready = true;
     initClock();
+    initPalette();
     var hero = initHero();
     initReveal();
     initFilms();
     initPieces();
     initScroll(hero);
+    initPreloader();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();

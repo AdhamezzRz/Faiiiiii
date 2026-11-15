@@ -1,15 +1,15 @@
 {% comment %}
   Section contract.
-  Winter 26 hero: a portrait film window flanked by the two halves of the title,
+  Winter 27 hero: a portrait film window flanked by the two halves of the title,
   with the drop countdown. Switches to the "live" state at the drop time set in
-  Theme settings > Winter 26 drop.
+  Theme settings > Winter 27 drop.
   @example
   <!-- First section of the home page -->
 {% endcomment %}
 {%- liquid
   assign s = section.settings
   assign col = settings.w26_collection
-  assign shop_url = col.url | default: s.link_post | default: routes.all_products_collection_url
+  assign shop_url = s.link_shop | default: col.url | default: routes.all_products_collection_url
 -%}
 <section class="w26-hero" data-w26-hero aria-labelledby="w26-hero-title-{{ section.id }}">
   <div class="w26-hero__stage">
@@ -39,15 +39,11 @@
         <p class="w26-hero__text">{{ s.text | escape }}</p>
       {%- endif -%}
       <div class="w26-hero__actions">
-        {%- if s.label_pre != blank -%}
-          <a class="w26-btn w26-btn--solid" href="{{ s.link_pre | default: '#w26-pieces' }}" data-w26-pre>
-            <span>{{ s.label_pre | escape }}</span>
-          </a>
+        {%- if s.label_shop != blank -%}
+          <a class="w26-btn w26-btn--solid" href="{{ shop_url }}"><span>{{ s.label_shop | escape }}</span></a>
         {%- endif -%}
-        {%- if s.label_post != blank -%}
-          <a class="w26-btn w26-btn--solid" href="{{ shop_url }}" data-w26-post>
-            <span>{{ s.label_post | escape }}</span>
-          </a>
+        {%- if s.label_pre != blank -%}
+          <a class="w26-btn" href="{{ s.link_pre | default: '#w26-pieces' }}" data-w26-pre><span>{{ s.label_pre | escape }}</span></a>
         {%- endif -%}
       </div>
     </div>
@@ -83,17 +79,17 @@
 
 {% schema %}
 {
-  "name": "W26 Hero",
+  "name": "Drop hero",
   "tag": "div",
   "class": "w26-section w26-section--hero",
   "settings": [
-    { "type": "paragraph", "content": "The drop time and the Winter 26 collection are set in Theme settings > Winter 26 drop." },
+    { "type": "paragraph", "content": "The drop time and the Winter 27 collection are set in Theme settings > Winter 27 drop." },
     { "type": "video", "id": "video", "label": "Film (portrait)" },
     { "type": "image_picker", "id": "image", "label": "Image (used when no film is set)" },
-    { "type": "text", "id": "film_caption", "label": "Film caption", "default": "Winter 26 — the film" },
+    { "type": "text", "id": "film_caption", "label": "Film caption", "default": "Winter 27 — the film" },
     { "type": "header", "content": "Title" },
     { "type": "text", "id": "title_a", "label": "Title, left of the film", "default": "Winter" },
-    { "type": "text", "id": "title_b", "label": "Title, right of the film", "default": "26" },
+    { "type": "text", "id": "title_b", "label": "Title, right of the film", "default": "27" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Six silhouettes for the cold. Belted wraps, knot-button jackets, leather collars and hooded coats, in chocolate, black, camel, sand, grey and ivory." },
     { "type": "header", "content": "Before the drop" },
     { "type": "text", "id": "clock_label", "label": "Countdown label", "default": "The drop opens in" },
@@ -101,14 +97,15 @@
     { "type": "text", "id": "label_hours", "label": "Hours label", "default": "Hours" },
     { "type": "text", "id": "label_minutes", "label": "Minutes label", "default": "Min" },
     { "type": "text", "id": "label_seconds", "label": "Seconds label", "default": "Sec" },
-    { "type": "text", "id": "label_pre", "label": "Button label", "default": "Preview the pieces" },
-    { "type": "url", "id": "link_pre", "label": "Button link" },
+    { "type": "text", "id": "label_pre", "label": "Second button label", "default": "Preview the pieces" },
+    { "type": "url", "id": "link_pre", "label": "Second button link" },
     { "type": "header", "content": "After the drop" },
     { "type": "text", "id": "live_label", "label": "Live label", "default": "Now live" },
-    { "type": "text", "id": "live_text", "label": "Live text", "default": "Winter 26 is here." },
-    { "type": "text", "id": "label_post", "label": "Button label", "default": "Shop Winter 26" },
-    { "type": "url", "id": "link_post", "label": "Button link (defaults to the Winter 26 collection)" }
+    { "type": "text", "id": "live_text", "label": "Live text", "default": "Winter 27 is here." },
+    { "type": "header", "content": "Shop button (always shown)" },
+    { "type": "text", "id": "label_shop", "label": "Button label", "default": "Shop the collection" },
+    { "type": "url", "id": "link_shop", "label": "Button link (defaults to the drop collection)" }
   ],
-  "presets": [{ "name": "W26 Hero" }]
+  "presets": [{ "name": "Drop hero" }]
 }
 {% endschema %}

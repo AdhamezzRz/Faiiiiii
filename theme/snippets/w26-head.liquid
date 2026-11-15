@@ -1,5 +1,5 @@
 {%- comment -%}
-  Winter 26 design layer. Rendered once from layout/theme.liquid.
+  Winter 27 design layer. Rendered once from layout/theme.liquid.
   Sets the drop state before first paint, then loads the stylesheet and script.
 {%- endcomment -%}
 {%- assign w26_drop_at = settings.w26_drop_at | default: '2026-11-16T20:00:00+02:00' -%}
@@ -11,6 +11,15 @@
     window.W26 = { dropAt: isNaN(t) ? 0 : t, ready: false };
     if (window.W26.dropAt && Date.now() >= window.W26.dropAt) d.classList.add('w26-live');
     setTimeout(function () { if (!window.W26.ready) d.classList.remove('w26-js'); }, 4000);
+    {%- if template.name == 'index' and settings.w26_pre_enable and request.design_mode == false %}
+    try {
+      if (!sessionStorage.getItem('w26-pre') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('w26-preload');
+        sessionStorage.setItem('w26-pre', '1');
+        setTimeout(function () { d.classList.remove('w26-preload'); }, 6000);
+      }
+    } catch (e) {}
+    {%- endif %}
   })();
 </script>
 {{ 'w26.css' | asset_url | stylesheet_tag }}

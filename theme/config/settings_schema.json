@@ -2286,7 +2286,7 @@
     ]
   },
   {
-    "name": "Winter 26 drop",
+    "name": "Winter 27 drop",
     "settings": [
       {
         "type": "paragraph",
@@ -2309,6 +2309,105 @@
         "type": "collection",
         "id": "w26_collection",
         "label": "Drop collection"
+      },
+      {
+        "type": "header",
+        "content": "Opening sequence (home page, once per visit)"
+      },
+      {
+        "type": "checkbox",
+        "id": "w26_pre_enable",
+        "label": "Show the opening sequence",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "w26_pre_text",
+        "label": "Text",
+        "default": "Faii — Winter 27"
+      },
+      {
+        "type": "text",
+        "id": "w26_pre_count_label",
+        "label": "Counter label",
+        "default": "Frame"
+      },
+      {
+        "type": "number",
+        "id": "w26_pre_from",
+        "label": "Counter starts at",
+        "default": 4233
+      },
+      {
+        "type": "number",
+        "id": "w26_pre_to",
+        "label": "Counter ends at",
+        "default": 4785
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_1",
+        "label": "Frame 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_2",
+        "label": "Frame 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_3",
+        "label": "Frame 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_4",
+        "label": "Frame 4"
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_5",
+        "label": "Frame 5"
+      },
+      {
+        "type": "image_picker",
+        "id": "w26_pre_image_6",
+        "label": "Frame 6"
+      },
+      {
+        "type": "header",
+        "content": "Bag drawer"
+      },
+      {
+        "type": "number",
+        "id": "w26_free_shipping",
+        "label": "Free delivery from (in store currency, 0 to hide)",
+        "default": 7000
+      },
+      {
+        "type": "text",
+        "id": "w26_free_shipping_text",
+        "label": "Text while below the amount",
+        "default": "[amount] away from free delivery",
+        "info": "[amount] is replaced with what is left."
+      },
+      {
+        "type": "text",
+        "id": "w26_free_shipping_done",
+        "label": "Text once reached",
+        "default": "Free delivery unlocked"
+      },
+      {
+        "type": "text",
+        "id": "w26_cart_note",
+        "label": "Line under the checkout button",
+        "default": "Cairo in 5 working days · Governorates in 7"
+      },
+      {
+        "type": "text",
+        "id": "w26_cart_empty_button",
+        "label": "Button in the empty bag",
+        "default": "Shop the collection"
       }
     ]
   }

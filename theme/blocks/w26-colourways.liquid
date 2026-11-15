@@ -1,0 +1,71 @@
+{%- doc -%}
+  Colourway switcher for drop products. Finds the other products that share this
+  product's style tag (w26-…) in the drop collection and links to them with a
+  small photo and the colour name. Renders nothing when there is only one colourway.
+  @example
+  {% content_for 'block', type: 'w26-colourways', id: 'colourways' %}
+{%- enddoc -%}
+{%- liquid
+  assign p = closest.product | default: product
+  assign col = settings.w26_collection
+  assign style_tag = ''
+  assign own_colour = ''
+  for t in p.tags
+    if t contains 'w26-'
+      assign style_tag = t
+    endif
+    if t contains 'colour-'
+      assign own_colour = t | remove: 'colour-' | capitalize
+    endif
+  endfor
+  assign found = 0
+-%}
+{%- if style_tag != '' and col != blank -%}
+  {%- capture chips -%}
+    {%- for sp in col.products limit: 50 -%}
+      {%- if sp.tags contains style_tag -%}
+        {%- liquid
+          assign found = found | plus: 1
+          assign sp_colour = ''
+          for t in sp.tags
+            if t contains 'colour-'
+              assign sp_colour = t | remove: 'colour-' | capitalize
+            endif
+          endfor
+        -%}
+        <li>
+          <a
+            class="w26-ways__chip{% if sp.id == p.id %} is-current{% endif %}"
+            href="{{ sp.url }}"
+            {% if sp.id == p.id %}aria-current="true"{% endif %}
+          >
+            <span class="w26-ways__img">
+              {%- if sp.featured_image != blank -%}
+                {{ sp.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', decoding: 'async', alt: '' }}
+              {%- endif -%}
+            </span>
+            <span class="w26-ways__name">{{ sp_colour | default: sp.title | escape }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- if found > 1 -%}
+    <div class="w26-ways" {{ block.shopify_attributes }}>
+      <p class="w26-ways__label">
+        <span class="w26-meta">{{ block.settings.label | escape }}</span>
+        {%- if own_colour != '' %} <span class="w26-ways__own">{{ own_colour | escape }}</span>{% endif -%}
+      </p>
+      <ul class="w26-ways__list" role="list">{{ chips }}</ul>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Drop colourways",
+  "tag": null,
+  "settings": [{ "type": "text", "id": "label", "label": "Label", "default": "Colour" }],
+  "presets": [{ "name": "Drop colourways" }]
+}
+{% endschema %}

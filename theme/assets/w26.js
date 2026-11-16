@@ -35,7 +35,14 @@
         var wasLive = root.classList.contains('w26-live');
         root.classList.add('w26-live');
         put('d', 0); put('h', 0); put('m', 0); put('s', 0);
-        if (!wasLive && document.querySelector('[data-w26-locked]')) setTimeout(function () { location.reload(); }, 2500);
+        if (document.querySelector('[data-w26-locked], .w26-lock')) {
+          var key = 'w26-wait:' + location.pathname, n = 0;
+          try { n = +(sessionStorage.getItem(key) || 0); } catch (e) {}
+          if (n < 12) setTimeout(function () {
+            try { sessionStorage.setItem(key, String(n + 1)); } catch (e) {}
+            location.reload();
+          }, wasLive ? 15000 : 4000);
+        }
         return;
       }
       var s = Math.floor(left / 1000);
